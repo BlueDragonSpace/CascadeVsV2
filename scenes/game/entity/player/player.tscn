@@ -2,15 +2,39 @@
 
 [ext_resource type="PackedScene" uid="uid://xxybsqdp7atx" path="res://scenes/game/entity/entity.tscn" id="1_ubxyk"]
 [ext_resource type="Script" uid="uid://bk46m3y0yqfpa" path="res://scenes/game/entity/player/player.gd" id="2_xduwq"]
+[ext_resource type="PackedScene" uid="uid://dnd4wyq8a0jt4" path="res://scenes/game/entity/player/weapon/weapon.tscn" id="3_xduwq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubxyk"]
 radius = 8.0
 height = 32.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fd3jf"]
+size = Vector2(20, 1)
+
 [node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
 script = ExtResource("2_xduwq")
-p_num = null
-jump_height = null
+p_num = 1
+strength = 10
+jump_height = 4000
+max_spd = 80
+weapon_scene = ExtResource("3_xduwq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=752214510]
+[node name="Center" type="Marker2D" parent="." index="1" unique_id=1733847696]
+position = Vector2(0, -16)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Center" index="0" unique_id=234313247]
+node_a = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2" unique_id=752214510]
+position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_ubxyk")
+
+[node name="FloorBox" type="Area2D" parent="." index="3" unique_id=523396801]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorBox" index="0" unique_id=1853733284]
+shape = SubResource("RectangleShape2D_fd3jf")
+
+[connection signal="body_entered" from="FloorBox" to="." method="_on_floor_box_body_entered"]
+[connection signal="body_exited" from="FloorBox" to="." method="_on_floor_box_body_exited"]

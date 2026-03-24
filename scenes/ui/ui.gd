@@ -1,5 +1,7 @@
 extends Control
 
+@onready var top_bar: HBoxContainer = $HBoxContainer/VBoxContainer/TopBar
+
 @onready var character: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Character
 @onready var weapon: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Weapon
 @onready var secondary: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Secondary
@@ -9,3 +11,8 @@ extends Control
 
 #func set_data()
 # nope gonna do this later
+
+func player_hit(player_num: String, damage: float) -> void:
+	var hp_bar = top_bar.find_child("HPBar" + player_num)
+	
+	hp_bar.value -= damage
