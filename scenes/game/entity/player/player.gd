@@ -7,8 +7,8 @@ extends Entity
 
 @export var p_num = 1 # player number, for context of P1 or P2
 @export var strength = 80 ## ability to move your weapon
-@export var jump_height = 400
-@export var max_spd = 80
+@export var jump_height = 15
+@export var max_spd = 8
 
 @export var weapon_scene : PackedScene = null
 
@@ -35,15 +35,19 @@ func _ready() -> void:
 
 func _input(_event: InputEvent) -> void:
 	
-	if Input.is_action_just_pressed("jump" + suffix):
-		apply_impulse(Vector2(0, -jump_height))
-		linear_velocity.y = jump_height
-		position.y += jump_height
-		print(suffix, "jumped")
+	if Input.is_action_just_pressed("jump" + suffix) and can_jump:
+		apply_impulse(Vector2(0, -jump_height * 100))
+		can_jump = false
 	
 
 func _physics_process(delta: float) -> void:
-	linear_velocity.x = Input.get_axis("left" + suffix, "right" + suffix) * max_spd * delta
+	#linear_velocity.x = Input.get_axis("left" + suffix, "right" + suffix) * max_spd * delta
+	
+	var x_dir = Input.get_axis("left" + suffix, "right" + suffix)
+	var x_speed = x_dir * max_spd * 1000 * delta 
+	linear_velocity.x = x_speed
+	
+	
 	weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
 
 ## custom functions

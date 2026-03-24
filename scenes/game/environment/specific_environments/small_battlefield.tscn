@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bv04btme51quy"]
+
+[ext_resource type="PackedScene" uid="uid://ctt0gkg3tfcjv" path="res://scenes/game/environment/environment_base.tscn" id="1_qvpbw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1smw7"]
+size = Vector2(352, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plorj"]
+size = Vector2(50, 2)
+
+[node name="SmallBattlefield" unique_id=2010721927 instance=ExtResource("1_qvpbw")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="1" unique_id=1571780208]
+collision_layer = 256
+collision_mask = 51
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=2019983471]
+shape = SubResource("RectangleShape2D_1smw7")
+
+[node name="Platform1" type="CollisionShape2D" parent="StaticBody2D" index="1" unique_id=1291945304]
+position = Vector2(-56, -40)
+shape = SubResource("RectangleShape2D_plorj")
+one_way_collision = true
+
+[node name="Platform2" type="CollisionShape2D" parent="StaticBody2D" index="2" unique_id=1614660502]
+position = Vector2(56, -40)
+shape = SubResource("RectangleShape2D_plorj")
+one_way_collision = true

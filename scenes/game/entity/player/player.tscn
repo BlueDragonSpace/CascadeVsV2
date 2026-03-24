@@ -12,11 +12,11 @@ height = 32.0
 size = Vector2(20, 1)
 
 [node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
+collision_mask = 256
+mass = 4.0
+lock_rotation = true
 script = ExtResource("2_xduwq")
-p_num = 1
 strength = 10
-jump_height = 4000
-max_spd = 80
 weapon_scene = ExtResource("3_xduwq")
 
 [node name="Center" type="Marker2D" parent="." index="1" unique_id=1733847696]

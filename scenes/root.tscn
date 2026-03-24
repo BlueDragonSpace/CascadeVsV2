@@ -1,14 +1,12 @@
 [gd_scene format=3 uid="uid://dhl32eg77c8sk"]
 
 [ext_resource type="PackedScene" uid="uid://c0hws6kc6ew6t" path="res://scenes/game/game.tscn" id="1_sqa0i"]
-[ext_resource type="Script" uid="uid://3l4qmlun30eq" path="res://scenes/game/game.gd" id="2_jh1ax"]
 [ext_resource type="PackedScene" uid="uid://ctxvvjpayl21x" path="res://scenes/ui/ui.tscn" id="3_kycxp"]
-[ext_resource type="Script" uid="uid://dx0rehsaasfqe" path="res://scenes/ui/ui.gd" id="4_j287u"]
 
-[node name="Root" type="Node" unique_id=586265582]
+[node name="Root" type="Node" unique_id=487362612]
 
 [node name="Game" parent="." unique_id=1852772180 instance=ExtResource("1_sqa0i")]
-script = ExtResource("2_jh1ax")
 
-[node name="UI" parent="." unique_id=1528007188 instance=ExtResource("3_kycxp")]
-script = ExtResource("4_j287u")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1682884563]
+
+[node name="UI" parent="CanvasLayer" unique_id=1528007188 instance=ExtResource("3_kycxp")]

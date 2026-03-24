@@ -1,6 +1,7 @@
 class_name Weapon
+extends RigidBody2D
 
-extends AnimatableBody2D
+@export var damage = 20
 
 signal hit_entity(entity)
 
