@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dqts7vo68o24h"]
+
+[ext_resource type="PackedScene" uid="uid://xxybsqdp7atx" path="res://scenes/game/entity/entity.tscn" id="1_ubxyk"]
+[ext_resource type="Script" uid="uid://bk46m3y0yqfpa" path="res://scenes/game/entity/player/player.gd" id="2_xduwq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubxyk"]
+radius = 8.0
+height = 32.0
+
+[node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
+script = ExtResource("2_xduwq")
+p_num = null
+jump_height = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1" unique_id=752214510]
+shape = SubResource("CapsuleShape2D_ubxyk")

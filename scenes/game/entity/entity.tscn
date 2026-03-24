@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://xxybsqdp7atx"]
+
+[ext_resource type="Script" uid="uid://bd1v4y1o7tklp" path="res://scenes/game/entity/entity.gd" id="1_yqfk1"]
+[ext_resource type="Texture2D" uid="uid://clu7j8tdi4166" path="res://art/placeholderart/myPixelArt/lazyExplosion.png" id="2_dn1yq"]
+
+[node name="Entity" type="RigidBody2D" unique_id=646907970]
+script = ExtResource("1_yqfk1")
+
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1198089255]
+emitting = false
+amount = 20
+texture = ExtResource("2_dn1yq")
+one_shot = true
+explosiveness = 1.0
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 176.47
+initial_velocity_max = 176.47
+scale_amount_min = 0.5
+scale_amount_max = 0.5

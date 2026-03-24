@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ctt0gkg3tfcjv"]
+
+[node name="EnvironmentBase" type="Node2D" unique_id=2010721927]
+
+[node name="Spawnpoints" type="Node2D" parent="." unique_id=2093845511]
+
+[node name="Marker2D" type="Marker2D" parent="Spawnpoints" unique_id=1542303037]
+position = Vector2(-128, -64)
+
+[node name="Marker2D2" type="Marker2D" parent="Spawnpoints" unique_id=686152606]
+position = Vector2(128, -64)
+
+[node name="Marker2D3" type="Marker2D" parent="Spawnpoints" unique_id=1497707964]
+position = Vector2(48, -96)
+
+[node name="Marker2D4" type="Marker2D" parent="Spawnpoints" unique_id=1465901013]
+position = Vector2(-48, -96)

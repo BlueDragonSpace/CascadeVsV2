@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://ctxvvjpayl21x"]
+
+[ext_resource type="Script" uid="uid://dx0rehsaasfqe" path="res://scenes/ui/ui.gd" id="1_pfayw"]
+[ext_resource type="PackedScene" uid="uid://dy8kumkeuy7et" path="res://scenes/ui/h_sep_invis.tscn" id="2_7vp6q"]
+[ext_resource type="Texture2D" uid="uid://skl6oj4btwmf" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp2.png" id="3_jcn1r"]
+[ext_resource type="Texture2D" uid="uid://cfkr8gbn4j4sj" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp0.png" id="4_uegxj"]
+[ext_resource type="Texture2D" uid="uid://pdjsmweiu7br" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp1.png" id="5_y220t"]
+[ext_resource type="PackedScene" uid="uid://dboqqt5uk2sbs" path="res://scenes/ui/v_sep_invis.tscn" id="6_4kltc"]
+
+[node name="UI" type="Control" unique_id=1528007188]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pfayw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=346348228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSepInvis" parent="HBoxContainer" unique_id=320503078 instance=ExtResource("2_7vp6q")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.05
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=391838842]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSepInvis" parent="HBoxContainer/VBoxContainer" unique_id=909040840 instance=ExtResource("2_7vp6q")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.5
+
+[node name="TopBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1898090276]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HPBar" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=1250192305]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 30.0
+nine_patch_stretch = true
+texture_under = ExtResource("3_jcn1r")
+texture_over = ExtResource("4_uegxj")
+texture_progress = ExtResource("5_y220t")
+
+[node name="VSepInvis" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=144555172 instance=ExtResource("6_4kltc")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.17
+
+[node name="Timer" type="Label" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=1287600319]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "45"
+horizontal_alignment = 1
+
+[node name="VSepInvis2" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=1961827741 instance=ExtResource("6_4kltc")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.17
+
+[node name="HPBar3" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=609577990]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 10.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_under = ExtResource("3_jcn1r")
+texture_over = ExtResource("4_uegxj")
+texture_progress = ExtResource("5_y220t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1220545778]
+layout_mode = 2
+
+[node name="Initial" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=920130413]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial" unique_id=1834993036]
+layout_mode = 2
+text = "Character: "
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial" unique_id=2038687250]
+layout_mode = 2
+text = "Weapon: "
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial" unique_id=1836927924]
+layout_mode = 2
+text = "Secondary: "
+
+[node name="After" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1155965]
+layout_mode = 2
+
+[node name="Character" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After" unique_id=1872573702]
+layout_mode = 2
+text = "Below are set in code"
+
+[node name="Weapon" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After" unique_id=1936463092]
+layout_mode = 2
+text = "Weapon: "
+
+[node name="Secondary" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After" unique_id=1983509187]
+layout_mode = 2
+text = "Secondary: "
+
+[node name="VSepInvis" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1211583083 instance=ExtResource("6_4kltc")]
+layout_mode = 2
+
+[node name="After2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=2066159847]
+layout_mode = 2
+
+[node name="Character2" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After2" unique_id=135446595]
+layout_mode = 2
+text = "Below are set in code"
+
+[node name="Weapon2" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After2" unique_id=1731034843]
+layout_mode = 2
+text = "Weapon: "
+
+[node name="Secondary2" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/After2" unique_id=397027040]
+layout_mode = 2
+text = "Secondary: "
+
+[node name="Initial2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1988677079]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial2" unique_id=23221838]
+layout_mode = 2
+text = " Character"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial2" unique_id=335837017]
+layout_mode = 2
+text = " Weapon"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/Initial2" unique_id=1835666196]
+layout_mode = 2
+text = " Secondary"
+horizontal_alignment = 2
+
+[node name="HSepInvis2" parent="HBoxContainer/VBoxContainer" unique_id=1496962842 instance=ExtResource("2_7vp6q")]
+layout_mode = 2
+size_flags_stretch_ratio = 5.38
+
+[node name="HSepInvis2" parent="HBoxContainer" unique_id=98456488 instance=ExtResource("2_7vp6q")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.05
