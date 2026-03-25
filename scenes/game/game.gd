@@ -2,19 +2,39 @@ extends Node2D
 
 @onready var UI = get_tree().get_first_node_in_group("UI")
 
+@onready var players: Node2D = $Players
 @onready var center: Marker2D = $Center
 @onready var camera_2d: Camera2D = $Center/Camera2D
 @onready var environment: Node2D = $Center/Environment
 
+@export var player_count = 2
+
+const PLAYER = preload("uid://dqts7vo68o24h")
+
 const SMALL_BATTLEFIELD = preload("uid://bv04btme51quy")
 const FLAT = preload("uid://bslnyut3g8exf")
+const MOVING_PLATFORM = preload("uid://dxcvfndadfugo")
 
 var env_rotate = false
 var screenshake = false
 
 func _ready() -> void:
 	
+	# chooses random environment
+	match(randi_range(0, 2)):
+		0:
+			environment.add_child(SMALL_BATTLEFIELD.instantiate())
+		1:
+			environment.add_child(FLAT.instantiate())
+		2:
+			environment.add_child(MOVING_PLATFORM.instantiate())
 	
+	for i in range(0, player_count):
+		var child = PLAYER.instantiate()
+		child.p_num = i + 1
+		child.position = environment.get_child(0).get_node("Spawnpoints/Marker2D" + str(child.p_num)).position
+		
+		players.add_child(child)
 	
 	UI.out_of_time.connect(time_out_event)
 

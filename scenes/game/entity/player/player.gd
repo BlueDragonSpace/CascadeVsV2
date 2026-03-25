@@ -46,7 +46,7 @@ func _ready() -> void:
 		floorbox.collision_mask = collision_mask
 		weapon.collision_layer = int(pow(2, 5))
 		weapon.hitbox.collision_mask = int(pow(2,0))
-		
+		weapon.update_hitbox_layers()
 	
 	UI.set_data(p_num, self)
 

@@ -1,5 +1,7 @@
 Aweossmoesaifupdf tascitcall
 
+Since weapon no longer impacts movement (as much) why not switch to a CharacterBody2D?
+
 Add custom node for Invisible HSep and VSep
 Connect UI data (most notably for secondary, on random battles)
 

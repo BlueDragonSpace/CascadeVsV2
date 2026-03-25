@@ -1,7 +1,6 @@
 extends Weapon
 
-
-func add_ready() -> void:
+func update_hitbox_layers() -> void:
 	
 	for child in find_children("RigidBody2D"):
 		child.collision_layer = collision_layer

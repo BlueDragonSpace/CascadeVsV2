@@ -1,14 +1,23 @@
 [gd_scene format=3 uid="uid://c0hws6kc6ew6t"]
 
 [ext_resource type="Script" uid="uid://3l4qmlun30eq" path="res://scenes/game/game.gd" id="1_sul5r"]
-[ext_resource type="PackedScene" uid="uid://dqts7vo68o24h" path="res://scenes/game/entity/player/player.tscn" id="2_7h61r"]
-[ext_resource type="PackedScene" uid="uid://bv04btme51quy" path="res://scenes/game/environment/specific_environments/small_battlefield.tscn" id="3_0sr1o"]
-[ext_resource type="PackedScene" uid="uid://d2afk51jtpk85" path="res://scenes/game/entity/player/weapon/specificWeapons/flail.tscn" id="3_kelw5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7h61r"]
 
 [node name="Game" type="Node2D" unique_id=1852772180]
 script = ExtResource("1_sul5r")
+
+[node name="Players" type="Node2D" parent="." unique_id=1252663992]
+
+[node name="Center" type="Marker2D" parent="." unique_id=385348461]
+position = Vector2(0, -152)
+
+[node name="Environment" type="Node2D" parent="Center" unique_id=1267626558]
+position = Vector2(0, 112)
+
+[node name="Camera2D" type="Camera2D" parent="Center" unique_id=1966874243]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
 
 [node name="Killzone" type="Area2D" parent="." unique_id=919728378]
 collision_layer = 0
@@ -17,31 +26,5 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=586519385]
 shape = SubResource("WorldBoundaryShape2D_7h61r")
-
-[node name="Players" type="Node2D" parent="." unique_id=1252663992]
-
-[node name="Player" parent="Players" unique_id=646907970 instance=ExtResource("2_7h61r")]
-position = Vector2(-128, -152)
-max_spd = 12
-max_hp = 25
-weapon_scene = ExtResource("3_kelw5")
-
-[node name="Player2" parent="Players" unique_id=1250194395 instance=ExtResource("2_7h61r")]
-position = Vector2(128, -152)
-p_num = 2
-max_hp = 25
-weapon_scene = ExtResource("3_kelw5")
-
-[node name="Center" type="Marker2D" parent="." unique_id=385348461]
-position = Vector2(0, -152)
-
-[node name="Environment" type="Node2D" parent="Center" unique_id=1267626558]
-position = Vector2(0, 112)
-
-[node name="EnvironmentBase" parent="Center/Environment" unique_id=2010721927 instance=ExtResource("3_0sr1o")]
-
-[node name="Camera2D" type="Camera2D" parent="Center" unique_id=1966874243]
-zoom = Vector2(3, 3)
-position_smoothing_enabled = true
 
 [connection signal="body_entered" from="Killzone" to="." method="_on_killzone_body_entered"]

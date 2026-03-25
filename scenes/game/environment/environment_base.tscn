@@ -4,7 +4,7 @@
 
 [node name="Spawnpoints" type="Node2D" parent="." unique_id=2093845511]
 
-[node name="Marker2D" type="Marker2D" parent="Spawnpoints" unique_id=1542303037]
+[node name="Marker2D1" type="Marker2D" parent="Spawnpoints" unique_id=1542303037]
 position = Vector2(-128, -64)
 
 [node name="Marker2D2" type="Marker2D" parent="Spawnpoints" unique_id=686152606]

@@ -6,15 +6,10 @@ extends RigidBody2D
 
 signal hit_entity(entity)
 
-func _ready() -> void:
-	print(collision_layer)
-	
-	add_ready()
-
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	hit_entity.emit(body)
 
-func add_ready() -> void:
+func update_hitbox_layers() -> void:
 	# basically an extended function for further classes
 	# I would use Godot's @virtual and @abstract, but they come with so much hassle
 	pass
