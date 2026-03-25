@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ctt0gkg3tfcjv" path="res://scenes/game/environment/environment_base.tscn" id="1_qvpbw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1smw7"]
-size = Vector2(352, 20)
+size = Vector2(352, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plorj"]
 size = Vector2(50, 2)

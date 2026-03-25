@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bslnyut3g8exf"]
+
+[ext_resource type="PackedScene" uid="uid://ctt0gkg3tfcjv" path="res://scenes/game/environment/environment_base.tscn" id="1_ub5rv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rksgy"]
+size = Vector2(352, 24)
+
+[node name="Flat" unique_id=2010721927 instance=ExtResource("1_ub5rv")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="1" unique_id=1855459794]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=1884985933]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_rksgy")

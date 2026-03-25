@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b2m3cvbsfphco"]
+
+[ext_resource type="PackedScene" uid="uid://dnd4wyq8a0jt4" path="res://scenes/game/entity/player/weapon/weapon.tscn" id="1_v1xds"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi2wn"]
+size = Vector2(40, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vjoe"]
+radius = 4.0
+
+[node name="Spear" unique_id=842688900 instance=ExtResource("1_v1xds")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=542890882]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_gi2wn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(1803181025) index="0" unique_id=1873378808]
+position = Vector2(40, 0)
+shape = SubResource("CircleShape2D_5vjoe")
+debug_color = Color(0.99858826, 0, 0.14983535, 0.41960785)

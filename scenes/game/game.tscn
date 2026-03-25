@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://3l4qmlun30eq" path="res://scenes/game/game.gd" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://dqts7vo68o24h" path="res://scenes/game/entity/player/player.tscn" id="2_7h61r"]
 [ext_resource type="PackedScene" uid="uid://bv04btme51quy" path="res://scenes/game/environment/specific_environments/small_battlefield.tscn" id="3_0sr1o"]
+[ext_resource type="PackedScene" uid="uid://d2afk51jtpk85" path="res://scenes/game/entity/player/weapon/specificWeapons/flail.tscn" id="3_kelw5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7h61r"]
 
@@ -21,10 +22,15 @@ shape = SubResource("WorldBoundaryShape2D_7h61r")
 
 [node name="Player" parent="Players" unique_id=646907970 instance=ExtResource("2_7h61r")]
 position = Vector2(-128, -152)
+max_spd = 12
+max_hp = 25
+weapon_scene = ExtResource("3_kelw5")
 
 [node name="Player2" parent="Players" unique_id=1250194395 instance=ExtResource("2_7h61r")]
 position = Vector2(128, -152)
 p_num = 2
+max_hp = 25
+weapon_scene = ExtResource("3_kelw5")
 
 [node name="Center" type="Marker2D" parent="." unique_id=385348461]
 position = Vector2(0, -152)

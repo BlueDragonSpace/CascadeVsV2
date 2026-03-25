@@ -43,11 +43,12 @@ func _ready() -> void:
 		# collides with environment and player 1
 		collision_layer = int(pow(2, 4))
 		collision_mask  = int(pow(2, 0) + pow(2, 1) + pow(2, 16))
-		floorbox.collision_layer = collision_mask
-		print(floorbox.collision_layer)
+		floorbox.collision_mask = collision_mask
 		weapon.collision_layer = int(pow(2, 5))
 		weapon.hitbox.collision_mask = int(pow(2,0))
-		print(weapon.collision_layer)
+		
+	
+	UI.set_data(p_num, self)
 
 func _input(_event: InputEvent) -> void:
 	
