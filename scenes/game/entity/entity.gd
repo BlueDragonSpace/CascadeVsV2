@@ -5,5 +5,18 @@ extends RigidBody2D
 
 @onready var death_particles: CPUParticles2D = $DeathParticles
 
-func die() -> void:
-	death_particles.emitting = true
+var is_dead = false
+
+func die(p_num: float = -1) -> void:
+	
+	# you can only die once
+	if not is_dead:
+		death_particles.emitting = true
+		set_deferred("lock_rotation", false) # makes the thing fall
+		is_dead = true
+		
+		if p_num != -1:
+			var temp_score = Global.score
+			temp_score[p_num - 1] -= 1
+			Global.set_score(temp_score)
+			

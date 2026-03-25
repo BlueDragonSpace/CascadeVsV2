@@ -44,7 +44,7 @@ alignment = 1
 [node name="HPBar1" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=1250192305]
 layout_mode = 2
 size_flags_horizontal = 3
-value = 30.0
+value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("3_jcn1r")
 texture_over = ExtResource("4_uegxj")
@@ -67,7 +67,7 @@ size_flags_stretch_ratio = 0.17
 [node name="HPBar2" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer/TopBar" unique_id=609577990]
 layout_mode = 2
 size_flags_horizontal = 3
-value = 10.0
+value = 100.0
 fill_mode = 1
 nine_patch_stretch = true
 texture_under = ExtResource("3_jcn1r")
@@ -146,6 +146,28 @@ horizontal_alignment = 2
 [node name="HSepInvis2" parent="HBoxContainer/VBoxContainer" unique_id=1496962842 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 5.38
+
+[node name="BottomBar" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1098477529]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Score1" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar" unique_id=937736688]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "0"
+
+[node name="Score2" type="Label" parent="HBoxContainer/VBoxContainer/BottomBar" unique_id=709147119]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 2
+
+[node name="HSepInvis3" parent="HBoxContainer/VBoxContainer" unique_id=517168879 instance=ExtResource("2_7vp6q")]
+layout_mode = 2
+size_flags_stretch_ratio = 0.3
 
 [node name="HSepInvis2" parent="HBoxContainer" unique_id=98456488 instance=ExtResource("2_7vp6q")]
 layout_mode = 2

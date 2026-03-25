@@ -12,7 +12,7 @@ height = 32.0
 size = Vector2(20, 1)
 
 [node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
-collision_mask = 256
+collision_mask = 65584
 mass = 4.0
 lock_rotation = true
 script = ExtResource("2_xduwq")
@@ -29,12 +29,12 @@ node_a = NodePath("../..")
 position = Vector2(0, -16)
 shape = SubResource("CapsuleShape2D_ubxyk")
 
-[node name="FloorBox" type="Area2D" parent="." index="3" unique_id=523396801]
+[node name="Floorbox" type="Area2D" parent="." index="3" unique_id=523396801]
 collision_layer = 0
-collision_mask = 256
+collision_mask = 65584
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorBox" index="0" unique_id=1853733284]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floorbox" index="0" unique_id=1853733284]
 shape = SubResource("RectangleShape2D_fd3jf")
 
-[connection signal="body_entered" from="FloorBox" to="." method="_on_floor_box_body_entered"]
-[connection signal="body_exited" from="FloorBox" to="." method="_on_floor_box_body_exited"]
+[connection signal="body_entered" from="Floorbox" to="." method="_on_floor_box_body_entered"]
+[connection signal="body_exited" from="Floorbox" to="." method="_on_floor_box_body_exited"]

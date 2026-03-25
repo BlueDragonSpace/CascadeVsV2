@@ -11,8 +11,8 @@ size = Vector2(50, 2)
 [node name="SmallBattlefield" unique_id=2010721927 instance=ExtResource("1_qvpbw")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="1" unique_id=1571780208]
-collision_layer = 256
-collision_mask = 51
+collision_layer = 65536
+collision_mask = 13107
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="0" unique_id=2019983471]
 shape = SubResource("RectangleShape2D_1smw7")

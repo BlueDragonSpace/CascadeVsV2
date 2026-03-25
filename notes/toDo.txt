@@ -1,9 +1,16 @@
 Aweossmoesaifupdf tascitcall
 
 Add custom node for Invisible HSep and VSep
-Fix dum-ahhhh DisplayServerWindows warning
 Connect UI data (most notably for secondary, on random battles)
+
+Jump off of other player and their weapon
+
 
 Link Spawn points to actual player spawning
 
 Phantom Camera
+
+Exclusively Player and Exclusively Weapon Platforms
+Fall-through platforms with down
+
+Why does it jump so high initially? Double jumping off of ground / platform? Spamming buttons

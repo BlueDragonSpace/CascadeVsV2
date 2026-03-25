@@ -2,6 +2,8 @@ class_name Weapon
 extends RigidBody2D
 
 @export var damage = 20
+@onready var hitbox: Area2D = $Hitbox
+
 
 signal hit_entity(entity)
 
