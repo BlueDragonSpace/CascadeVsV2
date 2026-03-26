@@ -5,7 +5,6 @@ extends Entity
 @onready var pin_joint_2d: PinJoint2D = $Center/PinJoint2D
 @onready var floorbox: Area2D = $Floorbox
 
-
 @export var p_num = 1 # player number, for context of P1 or P2
 @export var strength = 80 ## ability to move your weapon
 @export var jump_height = 15
@@ -20,16 +19,29 @@ var current_hp = max_hp
 
 var weapon : Node = null # defined later
 
+const FLAIL = preload("uid://d2afk51jtpk85")
+const HOTDOG = preload("uid://d021frcs6rcos")
+const SPEAR = preload("uid://b2m3cvbsfphco")
+
 ## Godot Built-in Functions
 
 func _ready() -> void:
 	suffix = str(p_num)
 	
-	# define the weapon
-	weapon = weapon_scene.instantiate()
+	## define the weapon
+	if weapon_scene: # if weapon_scene is defined
+		weapon = weapon_scene.instantiate()
+	else: # get random weapon, if none is defined
+		match(randi_range(0, 2)):
+			0:
+				weapon = SPEAR.instantiate()
+			1:
+				weapon = HOTDOG.instantiate()
+			2:
+				weapon = FLAIL.instantiate()
+	
 	center.add_child(weapon)
 	pin_joint_2d.node_b = weapon.get_path()
-	
 	weapon.hit_entity.connect(deal_hit)
 	
 	# player num set-up

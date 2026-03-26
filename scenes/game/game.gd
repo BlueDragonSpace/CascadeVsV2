@@ -14,6 +14,7 @@ const PLAYER = preload("uid://dqts7vo68o24h")
 const SMALL_BATTLEFIELD = preload("uid://bv04btme51quy")
 const FLAT = preload("uid://bslnyut3g8exf")
 const MOVING_PLATFORM = preload("uid://dxcvfndadfugo")
+const WACK_BOXES = preload("uid://dnki7vjywgfxw")
 
 var env_rotate = false
 var screenshake = false
@@ -21,13 +22,15 @@ var screenshake = false
 func _ready() -> void:
 	
 	# chooses random environment
-	match(randi_range(0, 2)):
+	match(randi_range(0, 3)):
 		0:
 			environment.add_child(SMALL_BATTLEFIELD.instantiate())
 		1:
 			environment.add_child(FLAT.instantiate())
 		2:
 			environment.add_child(MOVING_PLATFORM.instantiate())
+		3:
+			environment.add_child(WACK_BOXES.instantiate())
 	
 	for i in range(0, player_count):
 		var child = PLAYER.instantiate()

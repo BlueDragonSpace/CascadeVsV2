@@ -16,7 +16,8 @@ size = Vector2(1, 8)
 radius = 2.0
 
 [node name="Flail" unique_id=842688900 instance=ExtResource("1_vpmyh")]
-mass = 0.4
+mass = 0.3
+lock_rotation = true
 script = ExtResource("2_o6ojt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=1571144521]
@@ -41,6 +42,7 @@ bias = 0.5
 collision_layer = 2
 collision_mask = 78640
 mass = 0.05
+gravity_scale = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinJoint2D/RigidBody2D" index="0" unique_id=940555501]
 position = Vector2(0, 4)
@@ -57,6 +59,7 @@ bias = 0.5
 collision_layer = 2
 collision_mask = 78640
 mass = 0.05
+gravity_scale = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinJoint2D2/RigidBody2D" index="0" unique_id=117351480]
 position = Vector2(0, 4)
@@ -73,6 +76,7 @@ bias = 0.5
 collision_layer = 2
 collision_mask = 78640
 mass = 0.2
+gravity_scale = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinJoint2D3/RigidBody2D" index="0" unique_id=146106498]
 position = Vector2(0, 4)

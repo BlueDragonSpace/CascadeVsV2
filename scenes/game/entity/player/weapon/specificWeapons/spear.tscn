@@ -9,6 +9,7 @@ size = Vector2(40, 4)
 radius = 4.0
 
 [node name="Spear" unique_id=842688900 instance=ExtResource("1_v1xds")]
+gravity_scale = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=542890882]
 position = Vector2(20, 0)

@@ -2,7 +2,9 @@ Aweossmoesaifupdf tascitcall
 
 Since weapon no longer impacts movement (as much) why not switch to a CharacterBody2D?
 
-Add custom node for Invisible HSep and VSep
+(Weapon is no longer impacted by gravity, but is still impacted by character movement...)
+Add GrooveJoint2D for pull-in push-out mechanic?
+
 Connect UI data (most notably for secondary, on random battles)
 
 

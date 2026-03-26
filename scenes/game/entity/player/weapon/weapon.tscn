@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://sq5fs64p1sog" path="res://scenes/game/entity/player/weapon/weapon.gd" id="1_n1vkq"]
 
-[node name="WeaponBase" type="RigidBody2D" unique_id=842688900]
+[node name="WeaponBase" type="RigidBody2D" unique_id=777083707]
 collision_layer = 2
 collision_mask = 78640
+gravity_scale = 0.0
+angular_damp = 135.62
 script = ExtResource("1_n1vkq")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1803181025]
