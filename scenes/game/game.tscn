@@ -6,6 +6,7 @@
 
 [node name="Game" type="Node2D" unique_id=1852772180]
 script = ExtResource("1_sul5r")
+player_count = 1
 
 [node name="Players" type="Node2D" parent="." unique_id=1252663992]
 
@@ -16,7 +17,8 @@ position = Vector2(0, -152)
 position = Vector2(0, 112)
 
 [node name="Camera2D" type="Camera2D" parent="Center" unique_id=1966874243]
-zoom = Vector2(3, 3)
+position = Vector2(0, 40)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
 [node name="Killzone" type="Area2D" parent="." unique_id=919728378]

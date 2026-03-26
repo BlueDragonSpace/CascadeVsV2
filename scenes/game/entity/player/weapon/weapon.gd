@@ -1,6 +1,7 @@
 class_name Weapon
 extends RigidBody2D
 
+@export var weapon_name = "Im weapon"
 @export var damage = 20
 @onready var hitbox: Area2D = find_child("Hitbox")
 

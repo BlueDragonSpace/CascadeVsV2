@@ -3,7 +3,7 @@ extends Node
 ## Global script, meaning this stuff can be accessed in any place
 
 # player scores
-var score = [0,0]
+var score = [0,0,0,0]
 
 signal score_changed
 

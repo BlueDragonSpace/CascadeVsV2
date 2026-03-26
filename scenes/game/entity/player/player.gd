@@ -5,17 +5,28 @@ extends Entity
 @onready var pin_joint_2d: PinJoint2D = $Center/PinJoint2D
 @onready var floorbox: Area2D = $Floorbox
 
+@export var weapon_scene : PackedScene = null
+
+@export var randomize_character : bool = true
+enum CHARACTER {
+	BASIC,
+	STRONG,
+	JUMP,
+}
+@export var chara : CHARACTER = CHARACTER.BASIC
+
 @export var p_num = 1 # player number, for context of P1 or P2
-@export var strength = 80 ## ability to move your weapon
+@export var strength = 10 ## ability to move your weapon
 @export var jump_height = 15
 @export var max_spd = 8
 @export var max_hp = 100
+# optimally, would have magic or something for secondary
 
-@export var weapon_scene : PackedScene = null
 
 var suffix = 1
 var can_jump = false
 var current_hp = max_hp
+var chara_name = 'Basicface'
 
 var weapon : Node = null # defined later
 
@@ -40,6 +51,31 @@ func _ready() -> void:
 			2:
 				weapon = FLAIL.instantiate()
 	
+	if randomize_character:
+		# just chooses a random one from the total
+		@warning_ignore("int_as_enum_without_cast")
+		chara = randi_range(1, CHARACTER.size() as int)
+	
+	match(chara):
+		CHARACTER.BASIC:
+			pass # lol basic stats
+		CHARACTER.STRONG:
+			#mass *= 1.2
+			
+			strength *= 1.5
+			jump_height *= 0.7
+			max_spd *= 0.7
+			max_hp *= 1.2
+			chara_name = 'Strongface' 
+		CHARACTER.JUMP:
+			#mass *= .7
+			
+			strength *= 0.6
+			jump_height *= 1.6
+			max_spd *= 1.4
+			max_hp *= .8
+			chara_name = 'Jumpface'
+	
 	center.add_child(weapon)
 	pin_joint_2d.node_b = weapon.get_path()
 	weapon.hit_entity.connect(deal_hit)
@@ -48,19 +84,40 @@ func _ready() -> void:
 	if p_num % 2 == 0: # is even?
 		weapon.rotation = PI # 180 degreessss
 	
-	if p_num == 2:
+	if p_num != 1:
 		# so by default, all collisions are set for player 1.
 		## manipulate collision layers (yay bitshifting!)
 		
 		# collides with environment and player 1
-		collision_layer = int(pow(2, 4))
-		collision_mask  = int(pow(2, 0) + pow(2, 1) + pow(2, 16))
+		collision_layer = int(pow(2, 4 * (p_num - 1)))
+		# initial collision mask (colliding with everything including itself
+		var temp_collision_mask = 0
+		for i in range(17):
+			temp_collision_mask += pow(2, i)
+		
+		# subtracts all flags part of this player
+		for i in range(4):
+			temp_collision_mask -= pow(2, (p_num - 1) * 4 + i)
+		
+		collision_mask = temp_collision_mask
+		
 		floorbox.collision_mask = collision_mask
-		weapon.collision_layer = int(pow(2, 5))
-		weapon.hitbox.collision_mask = int(pow(2,0))
+		weapon.collision_layer = int(pow(2, (p_num - 1) * 4 + 1))
+		
+		var temp_weapon_collision_mask = 0
+		# weapon hits all but own self
+		for i in range(1, 5):
+			if i == p_num:
+				pass
+			else:
+				temp_weapon_collision_mask += int(pow(2, (i - 1) * 4))
+		
+		# test the masksssssss
+		weapon.hitbox.collision_mask = temp_weapon_collision_mask
+		
 		weapon.update_hitbox_layers()
 	
-	UI.set_data(p_num, self)
+	UI.call_deferred("set_data", p_num, self)
 
 func _input(_event: InputEvent) -> void:
 	
@@ -77,7 +134,7 @@ func _physics_process(delta: float) -> void:
 	if not is_dead:
 		
 		var x_dir = Input.get_axis("left" + suffix, "right" + suffix)
-		var x_speed = x_dir * max_spd * 1000 * delta 
+		var x_speed = x_dir * max_spd * 1000 * delta
 		linear_velocity.x = x_speed
 		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
 

@@ -1,17 +1,22 @@
 extends Control
 
-@onready var top_bar: HBoxContainer = $HBoxContainer/VBoxContainer/TopBar
+@onready var main_container: VBoxContainer = $HBoxContainer/MainContainer
+# yes, I know they're arranged weird, just work with me here
+@onready var p_bar_1: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar1
+@onready var score_1: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Score1
+@onready var p_bar_2: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar2
+@onready var score_2: Label = $HBoxContainer/MainContainer/TopBar/PBar2/Score2
+@onready var after_1: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After1
+@onready var after_2: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After2
 
-@onready var character: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Character
-@onready var weapon: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Weapon
-@onready var secondary: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After/Secondary
-@onready var character_2: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After2/Character2
-@onready var weapon_2: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After2/Weapon2
-@onready var secondary_2: Label = $HBoxContainer/VBoxContainer/HBoxContainer/After2/Secondary2
-@onready var score_1: Label = $HBoxContainer/VBoxContainer/BottomBar/Score1
-@onready var score_2: Label = $HBoxContainer/VBoxContainer/BottomBar/Score2
+@onready var after_3: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After3
+@onready var after_4: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After4
+@onready var p_bar_3: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar3
+@onready var score_3: Label = $HBoxContainer/MainContainer/TopBar2/PBar3/Score3
+@onready var p_bar_4: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar4
+@onready var score_4: Label = $HBoxContainer/MainContainer/TopBar2/PBar4/Score4
 
-@onready var timer: Label = $HBoxContainer/VBoxContainer/TopBar/Timer
+@onready var timer: Label = $HBoxContainer/MainContainer/TopBar/Timer
 
 @export var max_timer_time : int = 45
 @onready var timer_time : float = max_timer_time
@@ -19,13 +24,6 @@ extends Control
 var timer_running = true
 
 signal out_of_time
-
-func set_data(p_num: int, node_data: Node) -> void:
-	
-	var hp_bar = find_child("HPBar" + str(p_num))
-	hp_bar.max_value = node_data.max_hp
-	hp_bar.value = hp_bar.max_value
-	
 
 func _ready() -> void:
 	
@@ -37,6 +35,12 @@ func _ready() -> void:
 		timer_running = false
 	
 	timer.text = str(int(ceil(timer_time)))
+	
+	# sets all player stats, hp bars, and scores to start as invisible
+	# players that appear get their bar added later
+	for i in range(1, 5):
+		find_child("PBar" + str(i)).visible = false
+		find_child("After" + str(i)).visible = false # basically the stats
 
 func _process(delta: float) -> void:
 	
@@ -48,11 +52,31 @@ func _process(delta: float) -> void:
 		timer_running = false
 		out_of_time.emit()
 
+func set_data(p_num: int, node_data: Node) -> void:
+	
+	# hp
+	var hp_bar = main_container.find_child("HPBar" + str(p_num))
+	hp_bar.max_value = node_data.max_hp
+	hp_bar.value = hp_bar.max_value
+	
+	# character name
+	var name_name = main_container.find_child("Character" + str(p_num))
+	name_name.text = node_data.chara_name
+	
+	# weapon
+	var weapon_text = main_container.find_child("Weapon" + str(p_num))
+	weapon_text.text = node_data.weapon.weapon_name
+	
+	find_child("PBar" + str(p_num)).visible = true
+	find_child("After" + str(p_num)).visible = true
+
 func player_hit(player_num: String, current_hp: float) -> void:
-	var hp_bar = top_bar.find_child("HPBar" + player_num)
+	var hp_bar = find_child("HPBar" + player_num)
 	
 	hp_bar.value = current_hp
 
 func update_score() -> void:
 	score_1.text = str(Global.score[0])
 	score_2.text = str(Global.score[1])
+	score_3.text = str(Global.score[2])
+	score_4.text = str(Global.score[3])

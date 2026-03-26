@@ -19,6 +19,7 @@ radius = 2.0
 mass = 0.3
 lock_rotation = true
 script = ExtResource("2_o6ojt")
+weapon_name = "Flail"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=1571144521]
 position = Vector2(16, 0)
