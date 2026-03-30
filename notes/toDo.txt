@@ -1,24 +1,79 @@
-Aweossmoesaifupdf tascitcall
+Aweossmoesaifupdf tascitcall TO-DOO LEEIIIISSSTTTTTT
 
-Since weapon no longer impacts movement (as much) why not switch to a CharacterBody2D?
+Content!!!:
+	Environments:
+		Ninja Poles
+		Compressing on the sides
+		Wrecking Ballz
+	Weapons:
+		Yo-Yo
+		Shovel (Heavy Spear)
+		Sword (Heavy)
+		Staff (forward and back, light damage, entire weapon)
+		Umbrella (attack and defend) [no secondary for switching combat type, plus slow fall]
+		Hammer
+		Rake
+		Evil Cloud (no weapon, but there's a fart cloud instead)
+		Body (hit people with yourself)
+		The Axe (Cascade)
+	Secondaries:
+		Wall Jump
+		Double Jump
+		Ghosting (invincibility [+ invisibility?], but you fall through the entire environment if not careful) -> (on that note probably should make it clear which platforms are ghostable)
+		Dash (Celeste!!!!)
+		Ender Pearl
+		Shield
+		Create Wall / Platform
+		Medkit / Overheal
+		Counter (stop all momentum, shine a light)
+		Air Blower / Cannon
+		
+		Ranged stuff(?):
+			Bow (charge shot)
+			Ricochet
+			Slingshot (immediate charge up, low damage but fast)
+			Gun (one-shot, because what did you expect)
+	
+	Random Modifiers:
+		Zero Grav. (might want to test first...)
+		3x / .5x Speed
+		One-Shot
+		No HP, knockback (like SSBU!)
 
-(Weapon is no longer impacted by gravity, but is still impacted by character movement...)
-Add GrooveJoint2D for pull-in push-out mechanic?
+Multiple time-out events (make time out change color when close to ending):
+	Rain fire from the sky (Heck from above)
+	Walls of fire on left and right (or one)
+	Floor is lava (rising)
 
-Connect UI data (most notably for secondary, on random battles)
+Content additions:
+	
+	Flail Length
+	Add GrooveJoint2D for pull-in push-out mechanic? (there's already not a lot of room on the keyboard)
 
-Flail Length
+
+Upon the death of everyone else, 3 second timer, if surviving still next round
 Exclusively Player and Exclusively Weapon Platforms
 Fall-through platforms with down
-Multiple time-out events (make time out change color when close to ending)
-
-Why does it jump so high initially? Double jumping off of ground / platform? Spamming buttons
+Jump pads (for environment)
 
 Choice to mirror opponent
-Wall Jump
-Shift for precise movement (all characters though?...)
+Shift for precise movement (all characters though?... remember the lack of buttons...)
+Minor Damage Hitboxes (Cascade's Axe had two, front was bigger, back was smaller, should do more damage when hitting with front)
+Cascade Damage System (more velocity = more damage)
+Time Freeze on Hit 
+Knockback on Hit? (was unreliable in Cascade)
 
 PHANTOM CAMERAAAAAAAAAAAAAAAAA
-4/3 players
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
+Soccer Mode? lol
+Color Picker
+
+There is always a need on the To-Do list to sort the To-Do list.
+
+Bugs:
+	Inability to move or jump (but can use weapon) sometimes, doesn't seem to be realted to environment
+
+
+
+Devlog: Fixed weird jump bug and 3/4P score not updating, sorted my to-do list

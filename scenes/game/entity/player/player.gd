@@ -12,14 +12,22 @@ enum CHARACTER {
 	BASIC,
 	STRONG,
 	JUMP,
+	FLOAT,
 }
 @export var chara : CHARACTER = CHARACTER.BASIC
 
 @export var p_num = 1 # player number, for context of P1 or P2
+@export_category("Player Stats")
 @export var strength = 10 ## ability to move your weapon
 @export var jump_height = 15
 @export var max_spd = 8
 @export var max_hp = 100
+#@export var fall_mult = 1.0 ## Just manipulate gravity_scale
+@export_category("Unimplemented")
+@export var secondary_cooldown_mult = 1.0
+@export var damage_mult = 1.0 
+@export var weight_mult = 1.0 # likely just need to change mass for intended results...
+@export var lol_you_should_manipulate_hitbox_for_characters = null
 # optimally, would have magic or something for secondary
 
 
@@ -59,22 +67,28 @@ func _ready() -> void:
 	match(chara):
 		CHARACTER.BASIC:
 			pass # lol basic stats
-		CHARACTER.STRONG:
-			#mass *= 1.2
 			
+		CHARACTER.STRONG:
 			strength *= 1.5
 			jump_height *= 0.7
 			max_spd *= 0.7
 			max_hp *= 1.2
 			chara_name = 'Strongface' 
-		CHARACTER.JUMP:
-			#mass *= .7
 			
+		CHARACTER.JUMP:
 			strength *= 0.6
 			jump_height *= 1.6
 			max_spd *= 1.4
 			max_hp *= .8
 			chara_name = 'Jumpface'
+			
+		CHARACTER.FLOAT:
+			strength *= 0.8
+			jump_height *= 0.6 # debuff their height or this would be ridiculous
+			max_spd *= 1.2
+			#max_hp
+			gravity_scale *= 0.2 # wow, they don't float, they just ignore gravity!1!11!!!
+			chara_name = 'Floatface'
 	
 	center.add_child(weapon)
 	pin_joint_2d.node_b = weapon.get_path()
@@ -124,10 +138,9 @@ func _input(_event: InputEvent) -> void:
 	if not is_dead:
 		
 		#if Input.is_action_just_pressed("jump" + suffix) and can_jump:
-		if Input.is_action_just_pressed("jump" + suffix) and floorbox.has_overlapping_bodies():
+		if Input.is_action_just_pressed("jump" + suffix) and floorbox.has_overlapping_bodies() and can_jump:
 			apply_impulse(Vector2(0, -jump_height * 100))
 			can_jump = false
-	
 
 func _physics_process(delta: float) -> void:
 	

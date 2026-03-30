@@ -5,12 +5,11 @@
 [node name="WeaponBase" type="RigidBody2D" unique_id=777083707]
 collision_layer = 2
 collision_mask = 78640
-gravity_scale = 0.0
 angular_damp = 135.62
 script = ExtResource("1_n1vkq")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1803181025]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 4368
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

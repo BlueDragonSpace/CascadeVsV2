@@ -10,3 +10,4 @@
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1682884563]
 
 [node name="UI" parent="CanvasLayer" unique_id=1528007188 instance=ExtResource("3_kycxp")]
+disable_timer = true
