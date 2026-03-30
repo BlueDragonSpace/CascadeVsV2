@@ -63,7 +63,8 @@ Cascade Damage System (more velocity = more damage)
 Time Freeze on Hit 
 Knockback on Hit? (was unreliable in Cascade)
 
-PHANTOM CAMERAAAAAAAAAAAAAAAAA
+PHANTOM CAMERAAAAAAAAAAAAAAAAA:
+	make usable for 4/3 people
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
 Soccer Mode? lol
@@ -72,8 +73,8 @@ Color Picker
 There is always a need on the To-Do list to sort the To-Do list.
 
 Bugs:
-	Inability to move or jump (but can use weapon) sometimes, doesn't seem to be realted to environment
+	
 
 
 
-Devlog: Fixed weird jump bug and 3/4P score not updating, sorted my to-do list
+Devlog: 

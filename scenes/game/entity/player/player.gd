@@ -4,6 +4,7 @@ extends Entity
 @onready var center: Marker2D = $Center
 @onready var pin_joint_2d: PinJoint2D = $Center/PinJoint2D
 @onready var floorbox: Area2D = $Floorbox
+@onready var camera_link: RemoteTransform2D = $CameraLink
 
 @export var weapon_scene : PackedScene = null
 

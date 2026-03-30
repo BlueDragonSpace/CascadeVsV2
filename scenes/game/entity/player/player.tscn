@@ -33,5 +33,7 @@ collision_mask = 65584
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floorbox" index="0" unique_id=1853733284]
 shape = SubResource("RectangleShape2D_fd3jf")
 
+[node name="CameraLink" type="RemoteTransform2D" parent="." index="4" unique_id=1162775271]
+
 [connection signal="body_entered" from="Floorbox" to="." method="_on_floor_box_body_entered"]
 [connection signal="body_exited" from="Floorbox" to="." method="_on_floor_box_body_exited"]

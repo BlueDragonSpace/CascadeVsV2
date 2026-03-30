@@ -9,7 +9,6 @@ size = Vector2(36, 2)
 size = Vector2(32, 1)
 
 [node name="Hotdog" unique_id=842688900 instance=ExtResource("1_bt7g3")]
-mass = 87.834
 weapon_name = "Hotdog"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=20584102]
