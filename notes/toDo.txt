@@ -64,7 +64,10 @@ Time Freeze on Hit
 Knockback on Hit? (was unreliable in Cascade)
 
 PHANTOM CAMERAAAAAAAAAAAAAAAAA:
+	make usable at all lol
 	make usable for 4/3 people
+	
+	Maybe just make my own camera?
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
 Soccer Mode? lol
@@ -78,3 +81,4 @@ Bugs:
 
 
 Devlog: 
+	Secondary Timer + Dash?

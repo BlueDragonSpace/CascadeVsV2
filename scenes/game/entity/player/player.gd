@@ -4,7 +4,8 @@ extends Entity
 @onready var center: Marker2D = $Center
 @onready var pin_joint_2d: PinJoint2D = $Center/PinJoint2D
 @onready var floorbox: Area2D = $Floorbox
-@onready var camera_link: RemoteTransform2D = $CameraLink
+@onready var secondary_timer: Timer = $SecondaryTimer
+@onready var secondary_timer_visual: TextureProgressBar = $SecondaryTimerVisual
 
 @export var weapon_scene : PackedScene = null
 
@@ -16,6 +17,15 @@ enum CHARACTER {
 	FLOAT,
 }
 @export var chara : CHARACTER = CHARACTER.BASIC
+
+@export var randomize_secondary : bool = true
+enum SECONDARY {
+	NONE,
+	DASH,
+	SHIELD,
+	AIR_BLOWER,
+}
+@export var secondary : SECONDARY = SECONDARY.NONE
 
 @export var p_num = 1 # player number, for context of P1 or P2
 @export_category("Player Stats")
@@ -36,6 +46,7 @@ var suffix = 1
 var can_jump = false
 var current_hp = max_hp
 var chara_name = 'Basicface'
+var secondary_ready = true # can the secondary be used currently?
 
 var weapon : Node = null # defined later
 
@@ -46,9 +57,8 @@ const SPEAR = preload("uid://b2m3cvbsfphco")
 ## Godot Built-in Functions
 
 func _ready() -> void:
-	suffix = str(p_num)
 	
-	## define the weapon
+	## define the WEAPON
 	if weapon_scene: # if weapon_scene is defined
 		weapon = weapon_scene.instantiate()
 	else: # get random weapon, if none is defined
@@ -60,10 +70,18 @@ func _ready() -> void:
 			2:
 				weapon = FLAIL.instantiate()
 	
+	center.add_child(weapon)
+	pin_joint_2d.node_b = weapon.get_path()
+	weapon.hit_entity.connect(deal_hit)
+	
+	if p_num % 2 == 0: # is even (i.e. on the right side of battlefield)?
+		weapon.rotation = PI # 180 degreessss
+	
+	
+	## CHARACTER STATS
 	if randomize_character:
-		# just chooses a random one from the total
-		@warning_ignore("int_as_enum_without_cast")
-		chara = randi_range(1, CHARACTER.size() as int)
+		# just chooses any random one from the total
+		chara = randi_range(0, CHARACTER.size() - 1) as CHARACTER
 	
 	match(chara):
 		CHARACTER.BASIC:
@@ -91,13 +109,8 @@ func _ready() -> void:
 			gravity_scale *= 0.2 # wow, they don't float, they just ignore gravity!1!11!!!
 			chara_name = 'Floatface'
 	
-	center.add_child(weapon)
-	pin_joint_2d.node_b = weapon.get_path()
-	weapon.hit_entity.connect(deal_hit)
-	
-	# player num set-up
-	if p_num % 2 == 0: # is even?
-		weapon.rotation = PI # 180 degreessss
+	## player num set-up
+	suffix = str(p_num)
 	
 	if p_num != 1:
 		# so by default, all collisions are set for player 1.
@@ -132,7 +145,20 @@ func _ready() -> void:
 		
 		weapon.update_hitbox_layers()
 	
+	
+	## SECONDARY
+	if randomize_secondary:
+		# can be anything but NONE (the first secondary)
+		#secondary = randi_range(1, SECONDARY.size() - 1) as SECONDARY
+		secondary = SECONDARY.DASH
+	
 	UI.call_deferred("set_data", p_num, self)
+	
+	# editor stuff
+	secondary_timer_visual.visible = false
+	secondary_timer_visual.value = 0
+	
+
 
 func _input(_event: InputEvent) -> void:
 	
@@ -143,14 +169,33 @@ func _input(_event: InputEvent) -> void:
 			apply_impulse(Vector2(0, -jump_height * 100))
 			can_jump = false
 
+func _process(_delta: float) -> void:
+	
+	# updates the secondary_timer
+	if not secondary_ready:
+		secondary_timer_visual.value = 100 * secondary_timer.time_left / secondary_timer.wait_time
+
 func _physics_process(delta: float) -> void:
 	
 	if not is_dead:
 		
 		var x_dir = Input.get_axis("left" + suffix, "right" + suffix)
 		var x_speed = x_dir * max_spd * 1000 * delta
-		linear_velocity.x = x_speed
+		
+		if not abs(linear_velocity.x) > max_spd: # if going past max_spd, it's out of control of player, and shouldn't be stopped 
+			linear_velocity.x = x_speed
 		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
+		
+		if Input.is_action_just_pressed("secondary" + suffix) and secondary == SECONDARY.DASH and secondary_ready:
+			
+			var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
+			impulse *= jump_height * 100
+			
+			apply_central_impulse(impulse)
+			
+			secondary_timer.start()
+			secondary_timer_visual.visible = true
+			secondary_ready = false
 
 ## custom functions
 func deal_hit(entity: Entity) -> void:
@@ -175,3 +220,8 @@ func _on_floor_box_body_entered(_body: Node2D) -> void:
 
 func _on_floor_box_body_exited(_body: Node2D) -> void:
 	can_jump = false
+
+func _on_secondary_timer_timeout() -> void:
+	secondary_ready = true
+	secondary_timer_visual.visible = false
+	$SecondaryTimerParticles.emitting = true

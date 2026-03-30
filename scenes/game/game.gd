@@ -12,19 +12,10 @@ extends Node2D
 
 const PLAYER = preload("uid://dqts7vo68o24h")
 
-#const SMALL_BATTLEFIELD = preload("uid://bv04btme51quy")
-#const FLAT = preload("uid://bslnyut3g8exf")
-#const MOVING_PLATFORM = preload("uid://dxcvfndadfugo")
-#const WACK_BOXES = preload("uid://dnki7vjywgfxw")
-
 var env_rotate = false
 var screenshake = false
 
 func _ready() -> void:
-	
-	
-	#phantom_camera_2d.follow_targets.push_back(get_node("Test/PathFollow2D/10CubeMiniWrap1_png"))
-	
 	# chooses random environment from the random_stages
 	environment.add_child(random_stages[randi_range(0, random_stages.size() - 1)].instantiate())
 	

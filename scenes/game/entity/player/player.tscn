@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xxybsqdp7atx" path="res://scenes/game/entity/entity.tscn" id="1_ubxyk"]
 [ext_resource type="Script" uid="uid://bk46m3y0yqfpa" path="res://scenes/game/entity/player/player.gd" id="2_xduwq"]
+[ext_resource type="Texture2D" uid="uid://bpyet5t7bpkww" path="res://art/placeholderart/myPixelArt/BiggBlue-1.png.png" id="3_xduwq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubxyk"]
 radius = 8.0
@@ -33,7 +34,32 @@ collision_mask = 65584
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floorbox" index="0" unique_id=1853733284]
 shape = SubResource("RectangleShape2D_fd3jf")
 
-[node name="CameraLink" type="RemoteTransform2D" parent="." index="4" unique_id=1162775271]
+[node name="SecondaryTimer" type="Timer" parent="." index="4" unique_id=2006871546]
+one_shot = true
+
+[node name="SecondaryTimerVisual" type="TextureProgressBar" parent="." index="5" unique_id=1614980747]
+offset_left = -5.0
+offset_top = -44.0
+offset_right = 35.0
+offset_bottom = -4.0
+scale = Vector2(0.25, 0.25)
+value = 100.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_progress = ExtResource("3_xduwq")
+
+[node name="SecondaryTimerParticles" type="CPUParticles2D" parent="." index="6" unique_id=352658649]
+emitting = false
+texture = ExtResource("3_xduwq")
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 180.0
+initial_velocity_min = 176.47
+initial_velocity_max = 176.47
+scale_amount_min = 0.25
+scale_amount_max = 0.25
 
 [connection signal="body_entered" from="Floorbox" to="." method="_on_floor_box_body_entered"]
 [connection signal="body_exited" from="Floorbox" to="." method="_on_floor_box_body_exited"]
+[connection signal="timeout" from="SecondaryTimer" to="." method="_on_secondary_timer_timeout"]
