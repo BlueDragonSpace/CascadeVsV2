@@ -16,6 +16,7 @@ Content!!!:
 		Evil Cloud (no weapon, but there's a fart cloud instead)
 		Body (hit people with yourself)
 		The Axe (Cascade)
+		Weedwhacker (rotating thing on the end of it)
 	Secondaries:
 		Wall Jump
 		Double Jump
@@ -27,6 +28,7 @@ Content!!!:
 		Medkit / Overheal
 		Counter (stop all momentum, shine a light)
 		Air Blower / Cannon
+		Bucket?!? (why would you want this one?)
 		
 		Ranged stuff(?):
 			Bow (charge shot)
@@ -55,6 +57,8 @@ Upon the death of everyone else, 3 second timer, if surviving still next round
 Exclusively Player and Exclusively Weapon Platforms
 Fall-through platforms with down
 Jump pads (for environment)
+Spike Zones (also environment)
+Weapon, Secondary, and Player Colorization
 
 Choice to mirror opponent
 Shift for precise movement (all characters though?... remember the lack of buttons...)
@@ -81,4 +85,4 @@ Bugs:
 
 
 Devlog: 
-	Secondary Timer + Dash?
+	

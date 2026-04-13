@@ -16,7 +16,11 @@ extends Control
 @onready var p_bar_4: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar4
 @onready var score_4: Label = $HBoxContainer/MainContainer/TopBar2/PBar4/Score4
 
-@onready var timer: Label = $HBoxContainer/MainContainer/TopBar/Timer
+@onready var round_timer: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/RoundTimer
+@onready var next_round_timer_label: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel
+@onready var next_round_timer: Timer = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel/NextRoundTimer
+
+
 
 @export var max_timer_time : int = 45
 @onready var timer_time : float = max_timer_time
@@ -31,10 +35,10 @@ func _ready() -> void:
 	update_score()
 	
 	if disable_timer:
-		timer.visible = false
+		round_timer.visible = false
 		timer_running = false
 	
-	timer.text = str(int(ceil(timer_time)))
+	round_timer.text = str(int(ceil(timer_time)))
 	
 	# sets all player stats, hp bars, and scores to start as invisible
 	# players that appear get their bar added later
@@ -46,11 +50,15 @@ func _process(delta: float) -> void:
 	
 	if timer_running:
 		timer_time -= delta
-		timer.text = str(int(ceil(timer_time)))
+		round_timer.text = str(int(ceil(timer_time)))
+	else:
+		next_round_timer_label.text = str(int(next_round_timer.time_left * 10) / 10.0) # rounds to one decimal
 	
 	if ceil(timer_time) <= 0:
 		timer_running = false
 		out_of_time.emit()
+
+## Custom Functions
 
 func set_data(p_num: int, node_data: Node) -> void:
 	
@@ -80,3 +88,13 @@ func update_score() -> void:
 	score_2.text = str(Global.score[1])
 	score_3.text = str(Global.score[2])
 	score_4.text = str(Global.score[3])
+
+func begin_next_round_timer() -> void:
+	
+	timer_running = false
+	next_round_timer.start()
+
+## Signalssss
+
+func _on_next_round_real_timer_timeout() -> void:
+	get_tree().reload_current_scene()

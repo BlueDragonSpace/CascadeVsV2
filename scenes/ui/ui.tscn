@@ -63,11 +63,23 @@ texture_progress = ExtResource("5_y220t")
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="Timer" type="Label" parent="HBoxContainer/MainContainer/TopBar" unique_id=1287600319]
+[node name="Timers" type="VBoxContainer" parent="HBoxContainer/MainContainer/TopBar/PBar1" unique_id=1244073589]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+
+[node name="RoundTimer" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers" unique_id=1287600319]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
 text = "45"
 horizontal_alignment = 1
+
+[node name="NextRoundTimerLabel" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers" unique_id=1536161618]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "3.0"
+horizontal_alignment = 1
+
+[node name="NextRoundTimer" type="Timer" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel" unique_id=801929223]
+wait_time = 3.0
 
 [node name="PBar2" type="HBoxContainer" parent="HBoxContainer/MainContainer/TopBar" unique_id=527566312]
 layout_mode = 2
@@ -227,3 +239,5 @@ size_flags_stretch_ratio = 0.3
 [node name="HSepInvis2" parent="HBoxContainer" unique_id=98456488 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
+
+[connection signal="timeout" from="HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel/NextRoundTimer" to="." method="_on_next_round_real_timer_timeout"]
