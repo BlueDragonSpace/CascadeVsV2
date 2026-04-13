@@ -20,6 +20,7 @@ extends Control
 @onready var next_round_timer_label: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel
 @onready var next_round_timer: Timer = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel/NextRoundTimer
 
+@onready var round_modifier: Label = $HBoxContainer/MainContainer/TopBar2/RoundModifier
 
 
 @export var max_timer_time : int = 45
@@ -93,6 +94,9 @@ func begin_next_round_timer() -> void:
 	
 	timer_running = false
 	next_round_timer.start()
+
+func set_round_modifier(title: String) -> void:
+	round_modifier.text = title
 
 ## Signalssss
 

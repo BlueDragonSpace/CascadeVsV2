@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://c0hws6kc6ew6t"]
 
 [ext_resource type="Script" uid="uid://3l4qmlun30eq" path="res://scenes/game/game.gd" id="1_sul5r"]
-[ext_resource type="PackedScene" uid="uid://bslnyut3g8exf" path="res://scenes/game/environment/specific_environments/flat.tscn" id="2_lfrn8"]
-[ext_resource type="PackedScene" uid="uid://dxcvfndadfugo" path="res://scenes/game/environment/specific_environments/moving_platform.tscn" id="3_5i0tg"]
-[ext_resource type="PackedScene" uid="uid://bv04btme51quy" path="res://scenes/game/environment/specific_environments/small_battlefield.tscn" id="4_bdhmt"]
-[ext_resource type="PackedScene" uid="uid://dnki7vjywgfxw" path="res://scenes/game/environment/specific_environments/wack_boxes.tscn" id="5_87uf6"]
+[ext_resource type="PackedScene" uid="uid://cwv1ld2mc4wd1" path="res://scenes/game/environment/specific_environments/poles.tscn" id="2_7h61r"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7h61r"]
 
@@ -13,7 +10,7 @@ size = Vector2(640, 496)
 
 [node name="Game" type="Node2D" unique_id=1852772180]
 script = ExtResource("1_sul5r")
-random_stages = Array[PackedScene]([ExtResource("2_lfrn8"), ExtResource("3_5i0tg"), ExtResource("4_bdhmt"), ExtResource("5_87uf6")])
+random_stages = Array[PackedScene]([ExtResource("2_7h61r")])
 
 [node name="Players" type="Node2D" parent="." unique_id=1252663992]
 
@@ -37,14 +34,13 @@ monitorable = false
 shape = SubResource("WorldBoundaryShape2D_7h61r")
 
 [node name="NoGravity" type="Area2D" parent="." unique_id=1706949181]
-visible = false
 collision_layer = 0
 collision_mask = 65535
 gravity_space_override = 3
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NoGravity" unique_id=1118486577]
+[node name="NoGravityCollider" type="CollisionShape2D" parent="NoGravity" unique_id=1118486577]
 position = Vector2(0, -80)
 shape = SubResource("RectangleShape2D_lfrn8")
 disabled = true

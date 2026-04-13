@@ -182,8 +182,10 @@ func _physics_process(delta: float) -> void:
 		var x_dir = Input.get_axis("left" + suffix, "right" + suffix)
 		var x_speed = x_dir * max_spd * 1000 * delta
 		
-		if not abs(linear_velocity.x) > max_spd: # if going past max_spd, it's out of control of player, and shouldn't be stopped 
-			linear_velocity.x = x_speed
+		## below code makes the player movement not smooth at all, and no air control...
+		#if not abs(linear_velocity.x) > max_spd: # if going past max_spd, it's out of control of player, and shouldn't be stopped 
+		
+		linear_velocity.x = x_speed
 		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
 		
 		if Input.is_action_just_pressed("secondary" + suffix) and secondary == SECONDARY.DASH and secondary_ready:

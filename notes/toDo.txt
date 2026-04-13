@@ -37,10 +37,12 @@ Content!!!:
 			Gun (one-shot, because what did you expect)
 	
 	Random Modifiers:
-		Zero Grav. (might want to test first...)
-		3x / .5x Speed
-		One-Shot
 		No HP, knockback (like SSBU!)
+		# might want to these resources nerd:
+			Why?
+			Icons
+			Text + Formatting
+			Script?
 
 Multiple time-out events (make time out change color when close to ending):
 	Rain fire from the sky (Heck from above)
@@ -85,4 +87,6 @@ Bugs:
 
 
 Devlog: 
-	
+	No internet connection lol
+	Next Round Timer
+	Uhhhhh Random Round Modifiers

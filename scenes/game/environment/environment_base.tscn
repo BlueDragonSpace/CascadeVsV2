@@ -15,3 +15,8 @@ position = Vector2(-48, -96)
 
 [node name="Marker2D4" type="Marker2D" parent="Spawnpoints" unique_id=1465901013]
 position = Vector2(48, -96)
+
+[node name="ViewPortEstimate" type="Camera2D" parent="." unique_id=167862055]
+enabled = false
+zoom = Vector2(3, 3)
+limit_bottom = 0

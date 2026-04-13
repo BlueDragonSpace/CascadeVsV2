@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://bk46m3y0yqfpa" path="res://scenes/game/entity/player/player.gd" id="2_xduwq"]
 [ext_resource type="Texture2D" uid="uid://bpyet5t7bpkww" path="res://art/placeholderart/myPixelArt/BiggBlue-1.png.png" id="3_xduwq"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xduwq"]
+friction = 0.79
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ubxyk"]
 radius = 8.0
 height = 32.0
@@ -14,6 +17,7 @@ size = Vector2(16, 0.5)
 [node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
 collision_mask = 131056
 mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_xduwq")
 lock_rotation = true
 script = ExtResource("2_xduwq")
 

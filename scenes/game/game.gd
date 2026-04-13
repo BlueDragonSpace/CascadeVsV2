@@ -7,10 +7,19 @@ extends Node2D
 @onready var camera_2d: Camera2D = $Center/Camera2D
 @onready var environment: Node2D = $Center/Environment
 
-@onready var next_round_timer: Timer = $NextRoundTimer
-
 @export var player_count = 2
 @export var random_stages : Array[PackedScene] = []
+@export var use_round_modifiers : bool = true
+
+enum ROUND_MODIFIERS {
+	BASIC,
+	ZERO_GRAVITY,
+	ONE_SHOT,
+	SLOW_SPEED,
+	FAST_SPEED,
+	# KNOCKBACK, # ideally like Smash Bros, ya know?
+	# SOCCER, # yeah this would be wild
+}
 
 const PLAYER = preload("uid://dqts7vo68o24h")
 
@@ -19,11 +28,14 @@ var env_rotate = false
 var screenshake = false
 
 var player_death_count = 0
+var current_modifier = ROUND_MODIFIERS.BASIC
 
 func _ready() -> void:
+	
 	# chooses random environment from the random_stages
 	environment.add_child(random_stages[randi_range(0, random_stages.size() - 1)].instantiate())
 	
+	# initializes players
 	for i in range(0, player_count):
 		var child = PLAYER.instantiate()
 		child.p_num = i + 1
@@ -32,7 +44,39 @@ func _ready() -> void:
 		players.add_child(child)
 		
 		child.connect("died", player_death.bind(child))
+	
+	# resetting certain round modifiers
+	Engine.time_scale = 1.0
+	
+	# randomly chooses a modifier and applies it (if round modifiers are enabled)
+	if use_round_modifiers:
+		current_modifier = randi_range(0, ROUND_MODIFIERS.size() - 1) as ROUND_MODIFIERS
 		
+		var t = '' # shorthand for accessing UI text thing later
+		
+		match(current_modifier):
+			ROUND_MODIFIERS.BASIC:
+				pass # nothing lol
+			ROUND_MODIFIERS.ZERO_GRAVITY:
+				# this is probably a temporary solution anyway
+				$NoGravity/NoGravityCollider.disabled = false
+				t = 'Zero Gravity'
+			ROUND_MODIFIERS.ONE_SHOT:
+				for player in players.get_children():
+					player.current_hp = 1 # wow they have one health like in One Shot
+				# funny enough this doesn't change the hp visual so it works perfectly
+				t = 'One Shot'
+			ROUND_MODIFIERS.SLOW_SPEED:
+				Engine.time_scale = 0.5
+				t = 'Slow Motion'
+			ROUND_MODIFIERS.FAST_SPEED:
+				Engine.time_scale = 2
+				t = '2x Speed!'
+			_:
+				t = 'this should be an error lol \nunknown  round modifier'
+		
+		UI.call_deferred("set_round_modifier",t)
+	
 	UI.out_of_time.connect(time_out_event)
 
 func _physics_process(delta: float) -> void:
