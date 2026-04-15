@@ -42,7 +42,7 @@ enum SECONDARY {
 # optimally, would have magic or something for secondary
 
 
-var suffix = 1
+var suffix = 1 # wait isn't this the same thing as p_num?????
 var can_jump = false
 var current_hp = max_hp
 var chara_name = 'Basicface'
@@ -215,7 +215,7 @@ func take_hit(damage: float) -> void:
 	
 	current_hp -= damage
 	
-	UI.player_hit(suffix, current_hp)
+	UI.player_hit(p_num, current_hp)
 	
 	if current_hp <= 0:
 		die(p_num)

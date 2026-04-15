@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://nw1hnfiib5p3" path="res://scenes/ui/p_bar.gd" id="1_mguux"]
 [ext_resource type="Texture2D" uid="uid://cfkr8gbn4j4sj" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp0.png" id="2_mguux"]
 [ext_resource type="Texture2D" uid="uid://pdjsmweiu7br" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp1.png" id="3_akx6m"]
+[ext_resource type="Texture2D" uid="uid://tsrjs7bwl3bu" path="res://art/placeholderart/myPixelArt/urdead.png" id="5_akx6m"]
 
 [node name="PBar" type="HBoxContainer" unique_id=1217208977]
 anchors_preset = 15
@@ -29,3 +30,12 @@ nine_patch_stretch = true
 texture_under = ExtResource("1_lm08w")
 texture_over = ExtResource("2_mguux")
 texture_progress = ExtResource("3_akx6m")
+
+[node name="UrDead" type="TextureRect" parent="HPBar" unique_id=1549784456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_akx6m")

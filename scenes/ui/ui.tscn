@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://dx0rehsaasfqe" path="res://scenes/ui/ui.gd" id="1_pfayw"]
 [ext_resource type="PackedScene" uid="uid://dy8kumkeuy7et" path="res://scenes/ui/h_sep_invis.tscn" id="2_7vp6q"]
 [ext_resource type="PackedScene" uid="uid://i6qlrs22ec7r" path="res://scenes/ui/p_bar.tscn" id="3_7vp6q"]
-[ext_resource type="Script" uid="uid://nw1hnfiib5p3" path="res://scenes/ui/p_bar.gd" id="5_0dwhk"]
 [ext_resource type="PackedScene" uid="uid://dboqqt5uk2sbs" path="res://scenes/ui/v_sep_invis.tscn" id="6_4kltc"]
 
 [node name="UI" type="Control" unique_id=1528007188 groups=["UI"]]
@@ -153,7 +152,6 @@ text = "Secondary: "
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
-script = ExtResource("5_0dwhk")
 
 [node name="PBar3" parent="HBoxContainer/MainContainer/TopBar2" unique_id=819698369 instance=ExtResource("3_7vp6q")]
 layout_mode = 2

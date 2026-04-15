@@ -13,12 +13,14 @@ extends Node2D
 
 enum ROUND_MODIFIERS {
 	BASIC,
-	ZERO_GRAVITY,
+	LOW_GRAVITY,
+	#NO_GRAVITY # (really bad, not funnnnn)
 	ONE_SHOT,
 	SLOW_SPEED,
 	FAST_SPEED,
 	# KNOCKBACK, # ideally like Smash Bros, ya know?
 	# SOCCER, # yeah this would be wild
+	
 }
 
 const PLAYER = preload("uid://dqts7vo68o24h")
@@ -57,10 +59,14 @@ func _ready() -> void:
 		match(current_modifier):
 			ROUND_MODIFIERS.BASIC:
 				pass # nothing lol
-			ROUND_MODIFIERS.ZERO_GRAVITY:
-				# this is probably a temporary solution anyway
-				$NoGravity/NoGravityCollider.disabled = false
-				t = 'Zero Gravity'
+			ROUND_MODIFIERS.LOW_GRAVITY:
+				#this is probably a temporary solution anyway
+				
+				## sets zero gravity (not reccomended)
+				#$NoGravity/NoGravityCollider.disabled = false
+				
+				$NoGravity.gravity = $NoGravity.gravity / 2.0
+				t = 'Low Gravity'
 			ROUND_MODIFIERS.ONE_SHOT:
 				for player in players.get_children():
 					player.current_hp = 1 # wow they have one health like in One Shot
@@ -76,6 +82,8 @@ func _ready() -> void:
 				t = 'this should be an error lol \nunknown  round modifier'
 		
 		UI.call_deferred("set_round_modifier",t)
+	else:
+		UI.call_deferred("set_round_modifier", "OFF") # code word that invisibles it
 	
 	UI.out_of_time.connect(time_out_event)
 
@@ -100,6 +108,8 @@ func player_death(body) -> void:
 	
 	body.modulate = Color.BLACK
 	player_death_count += 1
+	
+	UI.player_death(body.p_num)
 	
 	if player_death_count >= player_count - 1:
 		UI.begin_next_round_timer()

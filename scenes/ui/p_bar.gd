@@ -4,6 +4,9 @@ extends HBoxContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$HPBar/UrDead.visible = false
+	
 	if reverse:
+		# this doesn't reverse properly... 
 		for i in get_child_count():
 			move_child(get_child(-1), 0)

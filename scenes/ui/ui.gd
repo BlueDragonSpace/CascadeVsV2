@@ -78,10 +78,14 @@ func set_data(p_num: int, node_data: Node) -> void:
 	find_child("PBar" + str(p_num)).visible = true
 	find_child("After" + str(p_num)).visible = true
 
-func player_hit(player_num: String, current_hp: float) -> void:
-	var hp_bar = find_child("HPBar" + player_num)
+func player_hit(player_num: int, current_hp: float) -> void:
+	var hp_bar = find_child("PBar" + str(player_num)).find_child("HPBar")
 	
 	hp_bar.value = current_hp
+
+func player_death(player_num: int) -> void:
+	find_child("PBar" + str(player_num)).find_child("UrDead").visible = true
+
 
 func update_score() -> void:
 	# you know, might be worth storing these in an array, for 8 players
@@ -96,7 +100,10 @@ func begin_next_round_timer() -> void:
 	next_round_timer.start()
 
 func set_round_modifier(title: String) -> void:
-	round_modifier.text = title
+	if title != "OFF":
+		round_modifier.text = title
+	else:
+		round_modifier.visible = false
 
 ## Signalssss
 

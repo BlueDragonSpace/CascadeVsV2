@@ -55,8 +55,6 @@ Content additions:
 	Flail Length
 	Add GrooveJoint2D for pull-in push-out mechanic? (there's already not a lot of room on the keyboard)
 
-Visual black hp bar on env death
-
 Upon the death of everyone else, 3 second timer, if surviving still next round
 Exclusively Player and Exclusively Weapon Platforms
 Fall-through platforms with down
@@ -71,6 +69,16 @@ Cascade Damage System (more velocity = more damage)
 Time Freeze on Hit 
 Knockback on Hit? (was unreliable in Cascade)
 
+Tiny Perfection of Movement:
+	Celestially tight, but not rigid movement (96% of max speed by one sec, 100% by two)
+		Like the GMTK platformer tutorial
+	Variable Jump Height
+		While holding Jump, apply constant (decreasing) force upward
+		When jump is released, can_jump is false
+		Also requires use of CeilBox:
+			on hit, y vel = 0
+			Cannot hit one-way platforms (might alright be satisfied, but worth checking)
+
 PHANTOM CAMERAAAAAAAAAAAAAAAAA:
 	make usable at all lol
 	make usable for 4/3 people
@@ -84,10 +92,11 @@ Color Picker
 There is always a need on the To-Do list to sort the To-Do list.
 
 Bugs:
-	Teleporting rigid body is complex ("Genenger code")
+	Secondary does not update on UI
 
 
 
 Devlog: 
-	No internet connection lol (pushed a commit twice, wonder if it tracked both on Github??)
+	UrDead
+	Turned no grav to low grav
 	
