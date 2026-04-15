@@ -11,16 +11,16 @@ size = Vector2(4, 136)
 position = Vector2(0, -64)
 
 [node name="Marker2D1" parent="Spawnpoints" index="0" unique_id=1542303037]
-position = Vector2(-128, -40)
+position = Vector2(-144, -38)
 
 [node name="Marker2D2" parent="Spawnpoints" index="1" unique_id=686152606]
-position = Vector2(128, -40)
+position = Vector2(144, -38)
 
 [node name="Marker2D3" parent="Spawnpoints" index="2" unique_id=1497707964]
-position = Vector2(-24, -56)
+position = Vector2(-40, -62)
 
 [node name="Marker2D4" parent="Spawnpoints" index="3" unique_id=1465901013]
-position = Vector2(24, -56)
+position = Vector2(42, -62)
 
 [node name="Pole" type="StaticBody2D" parent="." index="1" unique_id=1541390297]
 position = Vector2(0, -80)
@@ -32,7 +32,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole2" type="StaticBody2D" parent="." index="2" unique_id=1846516409]
-position = Vector2(24, -56)
+position = Vector2(42, -62)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -41,7 +41,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole3" type="StaticBody2D" parent="." index="3" unique_id=287170727]
-position = Vector2(-24, -56)
+position = Vector2(-40, -70)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -50,7 +50,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole4" type="StaticBody2D" parent="." index="4" unique_id=337056488]
-position = Vector2(-64, -48)
+position = Vector2(-72, -54)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -59,7 +59,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole5" type="StaticBody2D" parent="." index="5" unique_id=775948844]
-position = Vector2(-104, -56)
+position = Vector2(-120, -54)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -68,7 +68,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole6" type="StaticBody2D" parent="." index="6" unique_id=61439983]
-position = Vector2(-128, -40)
+position = Vector2(-144, -38)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -77,7 +77,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole7" type="StaticBody2D" parent="." index="7" unique_id=653730355]
-position = Vector2(64, -48)
+position = Vector2(74, -54)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -86,7 +86,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole8" type="StaticBody2D" parent="." index="8" unique_id=573868133]
-position = Vector2(128, -40)
+position = Vector2(144, -38)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -95,7 +95,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole9" type="StaticBody2D" parent="." index="9" unique_id=1724172695]
-position = Vector2(104, -56)
+position = Vector2(120, -54)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -104,7 +104,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole10" type="StaticBody2D" parent="." index="10" unique_id=34042806]
-position = Vector2(152, -56)
+position = Vector2(168, -54)
 collision_layer = 65536
 collision_mask = 65536
 
@@ -113,7 +113,7 @@ position = Vector2(0, 32)
 shape = SubResource("RectangleShape2D_vdckr")
 
 [node name="Pole11" type="StaticBody2D" parent="." index="11" unique_id=1134457919]
-position = Vector2(-152, -56)
+position = Vector2(-168, -54)
 collision_layer = 65536
 collision_mask = 65536
 

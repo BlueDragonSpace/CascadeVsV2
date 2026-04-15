@@ -14,6 +14,9 @@ height = 32.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fd3jf"]
 size = Vector2(16, 0.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xduwq"]
+size = Vector2(0.5, 20)
+
 [node name="Player" unique_id=646907970 instance=ExtResource("1_ubxyk")]
 collision_mask = 131056
 mass = 4.0
@@ -63,6 +66,22 @@ initial_velocity_min = 176.47
 initial_velocity_max = 176.47
 scale_amount_min = 0.25
 scale_amount_max = 0.25
+
+[node name="LeftWallbox" type="Area2D" parent="." index="7" unique_id=640603049]
+position = Vector2(-8, -16)
+collision_layer = 0
+collision_mask = 65536
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallbox" index="0" unique_id=1178268118]
+shape = SubResource("RectangleShape2D_xduwq")
+
+[node name="RightWallbox" type="Area2D" parent="." index="8" unique_id=1892052128]
+position = Vector2(8, -16)
+collision_layer = 0
+collision_mask = 65536
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallbox" index="0" unique_id=456339420]
+shape = SubResource("RectangleShape2D_xduwq")
 
 [connection signal="body_entered" from="Floorbox" to="." method="_on_floor_box_body_entered"]
 [connection signal="body_exited" from="Floorbox" to="." method="_on_floor_box_body_exited"]

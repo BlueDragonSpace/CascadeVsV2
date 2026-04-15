@@ -198,6 +198,11 @@ func _physics_process(delta: float) -> void:
 			secondary_timer.start()
 			secondary_timer_visual.visible = true
 			secondary_ready = false
+	
+	if $LeftWallbox.has_overlapping_bodies(): #aka is hitting a left wall
+		linear_velocity.x = clamp(linear_velocity.x, 0, INF)
+	if $RightWallbox.has_overlapping_bodies(): #aka is hitting a right wall
+		linear_velocity.x = clamp(linear_velocity.x, -INF, 0)
 
 ## custom functions
 func deal_hit(entity: Entity) -> void:

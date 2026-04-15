@@ -23,3 +23,13 @@ func die(p_num: float = -1) -> void:
 			temp_score[p_num - 1] -= 1
 			Global.set_score(temp_score)
 			
+
+func teleport(new_position: Vector2) -> void:
+	
+	#thank you rando on the internet for teleporting RigidBody2D
+	PhysicsServer2D.body_set_state(
+	get_rid(),
+	PhysicsServer2D.BODY_STATE_TRANSFORM,
+	Transform2D.IDENTITY.translated(new_position)
+	)
+	

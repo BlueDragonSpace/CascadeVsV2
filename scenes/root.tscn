@@ -6,6 +6,7 @@
 [node name="Root" type="Node" unique_id=487362612]
 
 [node name="Game" parent="." unique_id=1852772180 instance=ExtResource("1_sqa0i")]
+player_count = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1682884563]
 

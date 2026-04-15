@@ -3,22 +3,18 @@ extends Control
 @onready var main_container: VBoxContainer = $HBoxContainer/MainContainer
 # yes, I know they're arranged weird, just work with me here
 @onready var p_bar_1: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar1
-@onready var score_1: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Score1
 @onready var p_bar_2: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar2
-@onready var score_2: Label = $HBoxContainer/MainContainer/TopBar/PBar2/Score2
 @onready var after_1: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After1
 @onready var after_2: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After2
-
 @onready var after_3: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After3
 @onready var after_4: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After4
 @onready var p_bar_3: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar3
-@onready var score_3: Label = $HBoxContainer/MainContainer/TopBar2/PBar3/Score3
 @onready var p_bar_4: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar4
-@onready var score_4: Label = $HBoxContainer/MainContainer/TopBar2/PBar4/Score4
+var p_bars = [p_bar_1, p_bar_2, p_bar_3, p_bar_4]
 
-@onready var round_timer: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/RoundTimer
-@onready var next_round_timer_label: Label = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel
-@onready var next_round_timer: Timer = $HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel/NextRoundTimer
+@onready var round_timer: Label = $HBoxContainer/MainContainer/TopBar/Timers/RoundTimer
+@onready var next_round_timer_label: Label = $HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel
+@onready var next_round_timer: Timer = $HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer
 
 @onready var round_modifier: Label = $HBoxContainer/MainContainer/TopBar2/RoundModifier
 
@@ -29,6 +25,8 @@ extends Control
 var timer_running = true
 
 signal out_of_time
+
+# refind p_bar individuals, since they no longer need player indexes
 
 func _ready() -> void:
 	
@@ -46,6 +44,7 @@ func _ready() -> void:
 	for i in range(1, 5):
 		find_child("PBar" + str(i)).visible = false
 		find_child("After" + str(i)).visible = false # basically the stats
+	
 
 func _process(delta: float) -> void:
 	
@@ -64,7 +63,7 @@ func _process(delta: float) -> void:
 func set_data(p_num: int, node_data: Node) -> void:
 	
 	# hp
-	var hp_bar = main_container.find_child("HPBar" + str(p_num))
+	var hp_bar = main_container.find_child("PBar" + str(p_num)).find_child("HPBar")
 	hp_bar.max_value = node_data.max_hp
 	hp_bar.value = hp_bar.max_value
 	
@@ -85,10 +84,11 @@ func player_hit(player_num: String, current_hp: float) -> void:
 	hp_bar.value = current_hp
 
 func update_score() -> void:
-	score_1.text = str(Global.score[0])
-	score_2.text = str(Global.score[1])
-	score_3.text = str(Global.score[2])
-	score_4.text = str(Global.score[3])
+	# you know, might be worth storing these in an array, for 8 players
+	p_bar_1.find_child("Score").text = str(Global.score[0])
+	p_bar_2.find_child("Score").text = str(Global.score[1])
+	p_bar_3.find_child("Score").text = str(Global.score[2])
+	p_bar_4.find_child("Score").text = str(Global.score[3])
 
 func begin_next_round_timer() -> void:
 	

@@ -39,8 +39,8 @@ func _ready() -> void:
 	for i in range(0, player_count):
 		var child = PLAYER.instantiate()
 		child.p_num = i + 1
-		child.position = environment.get_child(0).get_node("Spawnpoints/Marker2D" + str(child.p_num)).position
-		
+		var new_position : Vector2 = environment.get_child(0).get_node("Spawnpoints/Marker2D" + str(child.p_num)).global_position
+		child.position = new_position
 		players.add_child(child)
 		
 		child.connect("died", player_death.bind(child))
@@ -98,7 +98,7 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 
 func player_death(body) -> void:
 	
-	body.modulate = Color.RED
+	body.modulate = Color.BLACK
 	player_death_count += 1
 	
 	if player_death_count >= player_count - 1:

@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dx0rehsaasfqe" path="res://scenes/ui/ui.gd" id="1_pfayw"]
 [ext_resource type="PackedScene" uid="uid://dy8kumkeuy7et" path="res://scenes/ui/h_sep_invis.tscn" id="2_7vp6q"]
-[ext_resource type="Texture2D" uid="uid://skl6oj4btwmf" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp2.png" id="3_jcn1r"]
-[ext_resource type="Texture2D" uid="uid://cfkr8gbn4j4sj" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp0.png" id="4_uegxj"]
-[ext_resource type="Texture2D" uid="uid://pdjsmweiu7br" path="res://art/placeholderart/myPixelArt/HPBar (1)/hp1.png" id="5_y220t"]
+[ext_resource type="PackedScene" uid="uid://i6qlrs22ec7r" path="res://scenes/ui/p_bar.tscn" id="3_7vp6q"]
+[ext_resource type="Script" uid="uid://nw1hnfiib5p3" path="res://scenes/ui/p_bar.gd" id="5_0dwhk"]
 [ext_resource type="PackedScene" uid="uid://dboqqt5uk2sbs" path="res://scenes/ui/v_sep_invis.tscn" id="6_4kltc"]
 
 [node name="UI" type="Control" unique_id=1528007188 groups=["UI"]]
@@ -41,69 +40,38 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="PBar1" type="HBoxContainer" parent="HBoxContainer/MainContainer/TopBar" unique_id=1205657553]
+[node name="PBar1" parent="HBoxContainer/MainContainer/TopBar" unique_id=1217208977 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="Score1" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar1" unique_id=937736688]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0"
-
-[node name="HPBar1" type="TextureProgressBar" parent="HBoxContainer/MainContainer/TopBar/PBar1" unique_id=1250192305]
-layout_mode = 2
-size_flags_horizontal = 3
-value = 100.0
-nine_patch_stretch = true
-texture_under = ExtResource("3_jcn1r")
-texture_over = ExtResource("4_uegxj")
-texture_progress = ExtResource("5_y220t")
-
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar/PBar1" unique_id=144555172 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar" unique_id=144555172 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="Timers" type="VBoxContainer" parent="HBoxContainer/MainContainer/TopBar/PBar1" unique_id=1244073589]
+[node name="Timers" type="VBoxContainer" parent="HBoxContainer/MainContainer/TopBar" unique_id=1244073589]
 layout_mode = 2
 
-[node name="RoundTimer" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers" unique_id=1287600319]
+[node name="RoundTimer" type="Label" parent="HBoxContainer/MainContainer/TopBar/Timers" unique_id=1287600319]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "45"
 horizontal_alignment = 1
 
-[node name="NextRoundTimerLabel" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers" unique_id=1536161618]
+[node name="NextRoundTimerLabel" type="Label" parent="HBoxContainer/MainContainer/TopBar/Timers" unique_id=1536161618]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "3.0"
 horizontal_alignment = 1
 
-[node name="NextRoundTimer" type="Timer" parent="HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel" unique_id=801929223]
+[node name="NextRoundTimer" type="Timer" parent="HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel" unique_id=801929223]
 wait_time = 3.0
 
-[node name="PBar2" type="HBoxContainer" parent="HBoxContainer/MainContainer/TopBar" unique_id=527566312]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar/PBar2" unique_id=1961827741 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar" unique_id=1961827741 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="HPBar2" type="TextureProgressBar" parent="HBoxContainer/MainContainer/TopBar/PBar2" unique_id=609577990]
+[node name="PBar2" parent="HBoxContainer/MainContainer/TopBar" unique_id=132436564 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
-size_flags_horizontal = 3
-value = 100.0
-fill_mode = 1
-nine_patch_stretch = true
-texture_under = ExtResource("3_jcn1r")
-texture_over = ExtResource("4_uegxj")
-texture_progress = ExtResource("5_y220t")
-
-[node name="Score2" type="Label" parent="HBoxContainer/MainContainer/TopBar/PBar2" unique_id=709147119]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 2
+reverse = true
 
 [node name="LowerBar" type="HBoxContainer" parent="HBoxContainer/MainContainer" unique_id=1220545778]
 layout_mode = 2
@@ -185,57 +153,28 @@ text = "Secondary: "
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
+script = ExtResource("5_0dwhk")
 
-[node name="PBar3" type="HBoxContainer" parent="HBoxContainer/MainContainer/TopBar2" unique_id=1109944128]
+[node name="PBar3" parent="HBoxContainer/MainContainer/TopBar2" unique_id=819698369 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="Score3" type="Label" parent="HBoxContainer/MainContainer/TopBar2/PBar3" unique_id=747883070]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0"
-
-[node name="HPBar3" type="TextureProgressBar" parent="HBoxContainer/MainContainer/TopBar2/PBar3" unique_id=782000836]
-layout_mode = 2
-size_flags_horizontal = 3
-value = 100.0
-nine_patch_stretch = true
-texture_under = ExtResource("3_jcn1r")
-texture_over = ExtResource("4_uegxj")
-texture_progress = ExtResource("5_y220t")
-
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar2/PBar3" unique_id=357166299 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar2" unique_id=357166299 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
 [node name="RoundModifier" type="Label" parent="HBoxContainer/MainContainer/TopBar2" unique_id=1064917767]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "Round Modifier Text!
 yayayyaaya"
 
-[node name="PBar4" type="HBoxContainer" parent="HBoxContainer/MainContainer/TopBar2" unique_id=2072290925]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar2/PBar4" unique_id=1855960891 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar2" unique_id=1855960891 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="HPBar4" type="TextureProgressBar" parent="HBoxContainer/MainContainer/TopBar2/PBar4" unique_id=891636514]
+[node name="PBar4" parent="HBoxContainer/MainContainer/TopBar2" unique_id=576032160 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
-size_flags_horizontal = 3
-value = 100.0
-fill_mode = 1
-nine_patch_stretch = true
-texture_under = ExtResource("3_jcn1r")
-texture_over = ExtResource("4_uegxj")
-texture_progress = ExtResource("5_y220t")
-
-[node name="Score4" type="Label" parent="HBoxContainer/MainContainer/TopBar2/PBar4" unique_id=1108886970]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 2
+reverse = true
 
 [node name="HSepInvis3" parent="HBoxContainer/MainContainer" unique_id=517168879 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
@@ -245,4 +184,4 @@ size_flags_stretch_ratio = 0.3
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
 
-[connection signal="timeout" from="HBoxContainer/MainContainer/TopBar/PBar1/Timers/NextRoundTimerLabel/NextRoundTimer" to="." method="_on_next_round_real_timer_timeout"]
+[connection signal="timeout" from="HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer" to="." method="_on_next_round_real_timer_timeout"]
