@@ -4,12 +4,19 @@ extends Node2D
 
 @onready var players: Node2D = $Players
 @onready var center: Marker2D = $Center
-@onready var camera_2d: Camera2D = $Center/Camera2D
+@onready var camera_2d: Camera2D = $Center/BattleCam
 @onready var environment: Node2D = $Center/Environment
+@onready var firewalls: Area2D = $Firewalls
+
 
 @export var player_count = 2
 @export var random_stages : Array[PackedScene] = []
 @export var use_round_modifiers : bool = true
+
+@export_category("Force Random Events")
+@export var use_force_events : bool = false 
+@export var force_round_modifier : ROUND_MODIFIERS # does not override use_round_modifiers
+@export var force_timeout_modifier : TIMEOUT_MODIFIERS
 
 enum ROUND_MODIFIERS {
 	BASIC,
@@ -23,14 +30,27 @@ enum ROUND_MODIFIERS {
 	
 }
 
+enum TIMEOUT_MODIFIERS {
+	EARTHQUAKE,
+	FIREWALLS,
+	#FLOOR_IS_LAVA,
+	#THE_RAIN,
+	#FALLING_SKY
+}
+
+# enum for camera focuses? like on Players, Timeout, maybe some goal?
+# or could be best to simply use another camera
+
 const PLAYER = preload("uid://dqts7vo68o24h")
 
 var do_timeout = false # do the timeout event (cancel if all other players die)
+var timeout_event = randi_range(0, TIMEOUT_MODIFIERS.size() - 1) as TIMEOUT_MODIFIERS
 var env_rotate = false
 var screenshake = false
+var timeout_camera = false # maxes out camera to see timeout_event
 
 var player_death_count = 0
-var current_modifier = ROUND_MODIFIERS.BASIC
+var current_modifier = randi_range(0, ROUND_MODIFIERS.size() - 1) as ROUND_MODIFIERS
 
 func _ready() -> void:
 	
@@ -50,9 +70,12 @@ func _ready() -> void:
 	# resetting certain round modifiers
 	Engine.time_scale = 1.0
 	
+	if use_force_events:
+			current_modifier = force_round_modifier as ROUND_MODIFIERS
+			timeout_event = force_timeout_modifier as TIMEOUT_MODIFIERS
+	
 	# randomly chooses a modifier and applies it (if round modifiers are enabled)
 	if use_round_modifiers:
-		current_modifier = randi_range(0, ROUND_MODIFIERS.size() - 1) as ROUND_MODIFIERS
 		
 		var t = '' # shorthand for accessing UI text thing later
 		
@@ -87,7 +110,7 @@ func _ready() -> void:
 	
 	UI.out_of_time.connect(time_out_event)
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	
 	## Camera stuff lol
 	
@@ -100,31 +123,48 @@ func _physics_process(delta: float) -> void:
 	camera_2d.global_position = center_of_players
 	
 	## zooms based on the player distance from camera center
-	# find the distance from the camera for all players
-	var distances = []
-	for pos in positions:
-		distances.push_back(camera_2d.global_position.distance_to(pos))
-	# find whatever the farthest distance is
-	var max_dist = distances.max()
-	# zoom to fit it (or not)
-		# 128 is a healthy distance and results the zoom defaulting to 3.0 (at least on the x-axis, might need more testing for y-axis stuff)
-		# at a farther distance (above 128), the zoom should be less, and vice versa
-	var perfect_cam_zoom : float = clamp(128/float(max_dist) * 3, 2, 5)
-	# now, to smooth it... the camera can only change it's zoom by a certain max amount per frame (very small)
-	# the camera constantly is trying to get to this perfect value, slowly
-	var cam_zoom = lerp(camera_2d.zoom.x, perfect_cam_zoom, 0.05)
-	camera_2d.zoom = Vector2(cam_zoom, cam_zoom)
+	
+	if not timeout_camera:
+		# find the distance from the camera for all players
+		var distances = []
+		for pos in positions:
+			distances.push_back(camera_2d.global_position.distance_to(pos))
+		# find whatever the farthest distance is
+		var max_dist = distances.max()
+		# zoom to fit it (or not)
+			# 128 is a healthy distance and results the zoom defaulting to 3.0 (at least on the x-axis, might need more testing for y-axis stuff)
+			# at a farther distance (above 128), the zoom should be less, and vice versa
+		var perfect_cam_zoom : float = clamp(128/float(max_dist) * 3, 2, 5)
+		# now, to smooth it... the camera can only change it's zoom by a certain max amount per frame (very small)
+		# the camera constantly is trying to get to this perfect value, slowly
+		var cam_zoom = lerp(camera_2d.zoom.x, perfect_cam_zoom, 0.05)
+		
+		camera_2d.zoom = Vector2(cam_zoom, cam_zoom)
 	
 	# camera timeout effects
 	if do_timeout:
+		
 		if env_rotate:
 			center.rotation += 0.2 * delta
 		
 		if screenshake:
 			camera_2d.offset = Vector2(randf_range(-2, 2), randf_range(-2, 2))
+		
+		if timeout_event == TIMEOUT_MODIFIERS.FIREWALLS:
+			var redo_cam_zoom = lerp(camera_2d.zoom.x, (128 * 4)/float(firewalls.get_child(1).position.x), 0.03) # maxes out, slowly, initially
+			redo_cam_zoom = clamp(redo_cam_zoom, 1.0, 5.0)
+			camera_2d.zoom = Vector2(redo_cam_zoom, redo_cam_zoom)
+			#also resets camera offsets
+			camera_2d.global_position = Vector2(0, 0)
+			
+			# finally, something that doesn't involve the camera
+			var firewall_speed : float = 20.0
+			firewalls.get_child(0).position.x = min(firewall_speed * delta + firewalls.get_child(0).position.x, 0)
+			firewalls.get_child(1).position.x = max(-firewall_speed * delta + firewalls.get_child(1).position.x, 0)
 
 func _on_killzone_body_entered(body: Node2D) -> void:
 	# effectively kills the body that entered the kill zone
+	# also the same script for firewalls
 	
 	if body.p_num: # does p_num exist?
 		body.die(body.p_num)
@@ -148,8 +188,13 @@ func time_out_event() -> void:
 	do_timeout = true
 	
 	# now Ideally I would randomize this for different events like fire rain, but for now this will do
-	env_rotate = true
-	screenshake = true
+	match timeout_event:
+		TIMEOUT_MODIFIERS.EARTHQUAKE:
+			env_rotate = true
+			screenshake = true
+		TIMEOUT_MODIFIERS.FIREWALLS:
+			timeout_camera = true
+			firewalls.monitoring = true
 
 func calc_mean_vec2(nums: Array[Vector2]) -> Vector2:
 	

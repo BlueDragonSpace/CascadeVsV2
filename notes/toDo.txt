@@ -58,9 +58,10 @@ Content!!!:
 		
 
 Multiple time-out events (make time out change color when close to ending):
-	Rain fire from the sky (Heck from above)
-	Walls of fire on left and right (or one)
-	Floor is lava (rising)
+	Rain fire from the sky (Heck from above) (or Rain World lol)
+	Walls of fire on left and right (or one) (zoom out the camera to fit this)
+	Falling Sky (Chicken Little)
+	Floor is lava
 
 Content additions:
 	Character Scaling (find safe way to modify RigidBody2D Scale, or a specific and easy way to modify collider, floorbox, and wallboxes)
