@@ -5,6 +5,7 @@ Content!!!:
 		Ninja Poles
 		Compressing on the sides
 		Wrecking Ballz
+		(Inspo from official Smash and Rivals of Aether stages)
 	Weapons:
 		Yo-Yo
 		Shovel (Heavy Spear)
@@ -18,6 +19,9 @@ Content!!!:
 		The Axe (Cascade)
 		Weedwhacker (rotating thing on the end of it)
 		Spring Arm (like from ARMS [woah oh oh oh, woooahhh oh oh oh, woahhhhhh oh oh])
+		Nunchaku (weedwhacker but less fast and short range)
+		Charge Laser (thru environment)
+		
 	Secondaries:
 		Wall Jump
 		Double Jump
@@ -36,6 +40,7 @@ Content!!!:
 			Ricochet
 			Slingshot (immediate charge up, low damage but fast)
 			Gun (one-shot, because what did you expect)
+			Meteor Strike (very slow and obvious, but huge damage)
 	
 	Random Modifiers:
 		No HP, knockback (like SSBU!)
@@ -44,6 +49,13 @@ Content!!!:
 			Icons
 			Text + Formatting
 			Script?
+		Zero-G is horrible, needs addiitions:
+			temp walls
+			Unlock player rotation
+		Low-G rather than zero-g
+		BIG (and smol)
+		All of SSBU's special modifiers
+		
 
 Multiple time-out events (make time out change color when close to ending):
 	Rain fire from the sky (Heck from above)
@@ -54,6 +66,14 @@ Content additions:
 	Character Scaling (find safe way to modify RigidBody2D Scale, or a specific and easy way to modify collider, floorbox, and wallboxes)
 	Flail Length
 	Add GrooveJoint2D for pull-in push-out mechanic? (there's already not a lot of room on the keyboard)
+
+
+Cascade Version of Physics:
+	Velocity-based damage
+	Player moves more violently based on weapon:
+		(not in original, poke hits, aka minimum damage if no velocity)
+	Knockback
+	Armor
 
 Upon the death of everyone else, 3 second timer, if surviving still next round
 Exclusively Player and Exclusively Weapon Platforms
@@ -67,7 +87,19 @@ Shift for precise movement (all characters though?... remember the lack of butto
 Minor Damage Hitboxes (Cascade's Axe had two, front was bigger, back was smaller, should do more damage when hitting with front)
 Cascade Damage System (more velocity = more damage)
 Time Freeze on Hit 
-Knockback on Hit? (was unreliable in Cascade)
+Knockback on Hit? (was unreliable in Cascade...)
+	What about reverse weapon velocity (at 60%) on hit??? wuhhh huhhhhh huhh wahhh???
+Disarming: When weapon is taken out of a certain radius of the player, player loses control of weapon
+	Done whether by accident or skill on opponent's part)
+	With a button and controlled velocity, could instead be a "throw" and used towards player advantage
+		This would also include the need for the player to regain control of a weapon (possibly even opponents' weapon?)
+			Multiple weapon holding?
+		Would also include the need for damage without weapon (aka bodying lol)
+Difference between "Poke" damage and "Slam" Damage
+Sum damage in Gold (like StS), at least for some kind of training dummy
+Reverse weapon (animation, pop up, 180 rotate mid-air, fall back into hands), 
+	Must be at a stable velocity??
+Crouching (smaller hitbox, use an Animation, slower movement, 1/2 jump)
 
 Tiny Perfection of Movement:
 	Celestially tight, but not rigid movement (96% of max speed by one sec, 100% by two)
@@ -86,17 +118,22 @@ PHANTOM CAMERAAAAAAAAAAAAAAAAA:
 	Maybe just make my own camera?
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
+Story Mode (like World of Light) - has a like .001% chance of ever happening tbh lol
+	Though, brings to mind the enemies of Cascade (+ new additions like)
+		Ghost, Zombie, Projectiler (and whatever other ideas I had on Cascade)
+Shop (to buy new characters, modifiers, weapons, secondaries [attachments???])
 Soccer Mode? lol
+Gun Mayhem as starting point
+Ultra-performance mode (literally just hitboxes and nothing else)
 Color Picker
 
 There is always a need on the To-Do list to sort the To-Do list.
 
 Bugs:
-	Secondary does not update on UI
-
+	Lol fix the secondaries already
+	Camera's wayyyy off
 
 
 Devlog: 
-	UrDead
-	Turned no grav to low grav
-	
+	Secondary UI update, uggggghhhhh movement
+	Fixed Viewport estimate

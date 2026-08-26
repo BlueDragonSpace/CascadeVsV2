@@ -75,6 +75,10 @@ func set_data(p_num: int, node_data: Node) -> void:
 	var weapon_text = main_container.find_child("Weapon" + str(p_num))
 	weapon_text.text = node_data.weapon.weapon_name
 	
+	# secondary
+	var secondary_text = main_container.find_child("Secondary" + str(p_num))
+	secondary_text.text = node_data.secondary_name
+	
 	find_child("PBar" + str(p_num)).visible = true
 	find_child("After" + str(p_num)).visible = true
 

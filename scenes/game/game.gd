@@ -89,6 +89,22 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	## Camera stuff lol
+	
+	# sums up player positions and makes the camera go toward their center
+	var player_positions : Array[Vector2] = []
+	for player in players.get_children():
+		player_positions.push_back(player.global_position)
+		print(player.global_position)
+	var center_of_players = calc_mean_vec2(player_positions)
+	
+	camera_2d.global_position = center_of_players
+	
+	
+	# zooms based on the player distance from camera center
+	
+	
+	# camera timeout effects
 	if do_timeout:
 		if env_rotate:
 			center.rotation += 0.2 * delta
@@ -103,6 +119,8 @@ func _on_killzone_body_entered(body: Node2D) -> void:
 		body.die(body.p_num)
 	else:
 		body.die()
+
+## custom functions
 
 func player_death(body) -> void:
 	
@@ -121,3 +139,19 @@ func time_out_event() -> void:
 	# now Ideally I would randomize this for different events like fire rain, but for now this will do
 	env_rotate = true
 	screenshake = true
+
+func calc_mean_vec2(nums: Array[Vector2]) -> Vector2:
+	
+	var mean := Vector2(0, 0)
+	for num in nums:
+		mean += num
+	
+	mean.y /= nums.size()
+	mean.x /= nums.size()
+	
+	mean.y = round(mean.y)
+	mean.x = round(mean.x)
+	
+	print(mean)
+	print("/***********/")
+	return mean

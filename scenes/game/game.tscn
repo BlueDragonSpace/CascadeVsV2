@@ -9,7 +9,7 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7h61r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lfrn8"]
-size = Vector2(640, 496)
+size = Vector2(1008, 976)
 
 [node name="Game" type="Node2D" unique_id=1852772180]
 script = ExtResource("1_sul5r")
@@ -18,18 +18,23 @@ random_stages = Array[PackedScene]([ExtResource("2_lfrn8"), ExtResource("3_5i0tg
 [node name="Players" type="Node2D" parent="." unique_id=1252663992]
 
 [node name="Center" type="Marker2D" parent="." unique_id=385348461]
-position = Vector2(0, -152)
+position = Vector2(0, -240)
 
 [node name="Environment" type="Node2D" parent="Center" unique_id=1267626558]
-position = Vector2(0, 112)
+position = Vector2(0, 144)
 
 [node name="Camera2D" type="Camera2D" parent="Center" unique_id=1966874243]
 position = Vector2(0, 72)
+offset = Vector2(0, -36)
 zoom = Vector2(3, 3)
-limit_bottom = 100
+process_callback = 0
+limit_bottom = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 editor_draw_limits = true
 
 [node name="Killzone" type="Area2D" parent="." unique_id=919728378]
+position = Vector2(0, 64)
 collision_layer = 0
 collision_mask = 4369
 monitorable = false
@@ -43,7 +48,6 @@ collision_mask = 65535
 gravity_space_override = 3
 
 [node name="NoGravityCollider" type="CollisionShape2D" parent="NoGravity" unique_id=1118486577]
-position = Vector2(0, -80)
 shape = SubResource("RectangleShape2D_lfrn8")
 disabled = true
 debug_color = Color(0.20679888, 0.64007634, 3.85046e-07, 0.15294118)

@@ -22,8 +22,8 @@ enum CHARACTER {
 enum SECONDARY {
 	NONE,
 	DASH,
-	SHIELD,
-	AIR_BLOWER,
+	#SHIELD, 
+	AIR_BLOWER, # basically dash but no cooldown and less powerful
 }
 @export var secondary : SECONDARY = SECONDARY.NONE
 
@@ -47,6 +47,7 @@ var can_jump = false
 var current_hp = max_hp
 var chara_name = 'Basicface'
 var secondary_ready = true # can the secondary be used currently?
+var secondary_name = 'None'
 
 var weapon : Node = null # defined later
 
@@ -149,8 +150,15 @@ func _ready() -> void:
 	## SECONDARY
 	if randomize_secondary:
 		# can be anything but NONE (the first secondary)
-		#secondary = randi_range(1, SECONDARY.size() - 1) as SECONDARY
-		secondary = SECONDARY.DASH
+		secondary = randi_range(1, SECONDARY.size() - 1) as SECONDARY
+	
+	match(secondary):
+		SECONDARY.DASH:
+			secondary_name = 'Dash'
+		SECONDARY.AIR_BLOWER:
+			secondary_name = 'Air Blower'
+		_:
+			secondary_name = 'unknown secondary index error lol'
 	
 	UI.call_deferred("set_data", p_num, self)
 	
@@ -185,24 +193,40 @@ func _physics_process(delta: float) -> void:
 		## below code makes the player movement not smooth at all, and no air control...
 		#if not abs(linear_velocity.x) > max_spd: # if going past max_spd, it's out of control of player, and shouldn't be stopped 
 		
+		#apply_central_impulse(Vector2(x_speed, 0))
 		linear_velocity.x = x_speed
-		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
+		# doesn't take impulse from dash... uhhhh
 		
-		if Input.is_action_just_pressed("secondary" + suffix) and secondary == SECONDARY.DASH and secondary_ready:
-			
-			var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
-			impulse *= jump_height * 100
-			
-			apply_central_impulse(impulse)
-			
-			secondary_timer.start()
-			secondary_timer_visual.visible = true
-			secondary_ready = false
+		# weapon
+		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
 	
 	if $LeftWallbox.has_overlapping_bodies(): #aka is hitting a left wall
 		linear_velocity.x = clamp(linear_velocity.x, 0, INF)
 	if $RightWallbox.has_overlapping_bodies(): #aka is hitting a right wall
 		linear_velocity.x = clamp(linear_velocity.x, -INF, 0)
+
+func _unhandled_input(_event: InputEvent) -> void:
+	
+	match(secondary):
+		SECONDARY.DASH:
+			if Input.is_action_just_pressed("secondary" + suffix) and secondary_ready:
+				
+				var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
+				impulse *= jump_height * 100
+				
+				apply_central_impulse(impulse)
+				
+				secondary_timer.start()
+				secondary_timer_visual.visible = true
+				secondary_ready = false
+			
+		SECONDARY.AIR_BLOWER: 
+			if Input.is_action_pressed("secondary" + suffix):
+				var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
+				impulse *= jump_height * 100 # note how this is less powerful than DASH
+				
+				apply_central_force(impulse)
+				print('applying force of airrrrrr')
 
 ## custom functions
 func deal_hit(entity: Entity) -> void:

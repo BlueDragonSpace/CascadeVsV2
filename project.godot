@@ -15,7 +15,7 @@ config/description="Cascade, but PvP. Made a prototype like 3 months ago, this i
 Started 3/24/26"
 config/version="0.0.0"
 run/main_scene="uid://dhl32eg77c8sk"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0.15910667, 0.051880084, 0.34933287, 1)
 boot_splash/image="uid://b8oyr6v6wjvgf"
 config/icon="uid://clu7j8tdi4166"
