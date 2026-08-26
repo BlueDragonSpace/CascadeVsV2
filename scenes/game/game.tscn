@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://c0hws6kc6ew6t"]
 
 [ext_resource type="Script" uid="uid://3l4qmlun30eq" path="res://scenes/game/game.gd" id="1_sul5r"]
-[ext_resource type="PackedScene" uid="uid://bslnyut3g8exf" path="res://scenes/game/environment/specific_environments/flat.tscn" id="2_lfrn8"]
-[ext_resource type="PackedScene" uid="uid://dxcvfndadfugo" path="res://scenes/game/environment/specific_environments/moving_platform.tscn" id="3_5i0tg"]
-[ext_resource type="PackedScene" uid="uid://bv04btme51quy" path="res://scenes/game/environment/specific_environments/small_battlefield.tscn" id="4_bdhmt"]
-[ext_resource type="PackedScene" uid="uid://dnki7vjywgfxw" path="res://scenes/game/environment/specific_environments/wack_boxes.tscn" id="5_87uf6"]
+[ext_resource type="PackedScene" uid="uid://co31embghlg20" path="res://scenes/game/environment/specific_environments/endless.tscn" id="2_7h61r"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7h61r"]
 
@@ -13,7 +10,7 @@ size = Vector2(1008, 976)
 
 [node name="Game" type="Node2D" unique_id=1852772180]
 script = ExtResource("1_sul5r")
-random_stages = Array[PackedScene]([ExtResource("2_lfrn8"), ExtResource("3_5i0tg"), ExtResource("4_bdhmt"), ExtResource("5_87uf6")])
+random_stages = Array[PackedScene]([ExtResource("2_7h61r")])
 
 [node name="Players" type="Node2D" parent="." unique_id=1252663992]
 
@@ -25,12 +22,11 @@ position = Vector2(0, 144)
 
 [node name="Camera2D" type="Camera2D" parent="Center" unique_id=1966874243]
 position = Vector2(0, 72)
-offset = Vector2(0, -36)
+offset = Vector2(0, -48)
 zoom = Vector2(3, 3)
-process_callback = 0
 limit_bottom = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 3.0
+position_smoothing_speed = 2.0
 editor_draw_limits = true
 
 [node name="Killzone" type="Area2D" parent="." unique_id=919728378]

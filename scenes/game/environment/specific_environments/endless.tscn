@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://co31embghlg20"]
+
+[ext_resource type="PackedScene" uid="uid://ctt0gkg3tfcjv" path="res://scenes/game/environment/environment_base.tscn" id="1_ylcij"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o4040"]
+
+[node name="Endless" unique_id=2010721927 instance=ExtResource("1_ylcij")]
+
+[node name="Floor" type="StaticBody2D" parent="." index="2" unique_id=1533005920]
+collision_layer = 65536
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" index="0" unique_id=1037308828]
+shape = SubResource("WorldBoundaryShape2D_o4040")
