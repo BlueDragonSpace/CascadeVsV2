@@ -30,8 +30,10 @@ enum SECONDARY {
 @export var p_num = 1 # player number, for context of P1 or P2
 @export_category("Player Stats")
 @export var strength = 10 ## ability to move your weapon
-@export var jump_height = 15
-@export var max_spd = 8
+@export var jump_height : float = 15
+@export var acceleration = 5 # how fast can you get to max_spd
+@export var deacceleration = 32 * 100 # how quickly you stop moving once you stop pressing anything
+@export var max_spd = 8 * 10
 @export var max_hp = 100
 #@export var fall_mult = 1.0 ## Just manipulate gravity_scale
 @export_category("Unimplemented")
@@ -154,9 +156,9 @@ func _ready() -> void:
 	
 	match(secondary):
 		SECONDARY.DASH:
-			secondary_name = 'Dash'
+			secondary_name = 'Dash' # bugged, does not properly allow x-axis movement
 		SECONDARY.AIR_BLOWER:
-			secondary_name = 'Air Blower'
+			secondary_name = 'Air Blower' # seemingly doesn't do anything??
 		_:
 			secondary_name = 'unknown secondary index error lol'
 	
@@ -167,12 +169,12 @@ func _ready() -> void:
 	secondary_timer_visual.value = 0
 	
 
-
 func _input(_event: InputEvent) -> void:
+	
+	# used for one time events, generally
 	
 	if not is_dead:
 		
-		#if Input.is_action_just_pressed("jump" + suffix) and can_jump:
 		if Input.is_action_just_pressed("jump" + suffix) and floorbox.has_overlapping_bodies() and can_jump:
 			apply_impulse(Vector2(0, -jump_height * 100))
 			can_jump = false
@@ -187,25 +189,33 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_dead:
 		
+		# x movement
+		
 		var x_dir = Input.get_axis("left" + suffix, "right" + suffix)
-		var x_speed = x_dir * max_spd * 1000 * delta
+		var x_speed = x_dir * acceleration * 1000 * delta
 		
-		## below code makes the player movement not smooth at all, and no air control...
-		#if not abs(linear_velocity.x) > max_spd: # if going past max_spd, it's out of control of player, and shouldn't be stopped 
+		if (Input.is_action_pressed("left" + suffix) and linear_velocity.x > -max_spd) \
+		or (Input.is_action_pressed("right" + suffix) and linear_velocity.x < max_spd):
+		#and abs(linear_velocity.x) < max_spd:
+			#add_constant_central_force(Vector2(x_dir * max_spd * 10000 * delta, 0))
+			linear_velocity.x += x_speed
+			print('adding linear velocity')
+			
 		
-		#apply_central_impulse(Vector2(x_speed, 0))
-		linear_velocity.x = x_speed
-		# doesn't take impulse from dash... uhhhh
+		#print(constant_force)
+		#print(linear_velocity.x)
+		#print("/*********/")
+		
+		elif (not Input.is_action_pressed("left" + suffix) and linear_velocity.x < 0) or  \
+		(not Input.is_action_pressed("right" + suffix) and linear_velocity.x > 0):
+			linear_velocity.x = move_toward(linear_velocity.x, deacceleration * 1000, 0) # deacceleration
+		
+		# simple and pretty good solution, but fails to interpret air dash
+		#linear_velocity.x = x_speed
+		
 		
 		# weapon
 		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
-	
-	if $LeftWallbox.has_overlapping_bodies(): #aka is hitting a left wall
-		linear_velocity.x = clamp(linear_velocity.x, 0, INF)
-	if $RightWallbox.has_overlapping_bodies(): #aka is hitting a right wall
-		linear_velocity.x = clamp(linear_velocity.x, -INF, 0)
-
-func _unhandled_input(_event: InputEvent) -> void:
 	
 	match(secondary):
 		SECONDARY.DASH:
@@ -223,10 +233,15 @@ func _unhandled_input(_event: InputEvent) -> void:
 		SECONDARY.AIR_BLOWER: 
 			if Input.is_action_pressed("secondary" + suffix):
 				var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
-				impulse *= jump_height * 100 # note how this is less powerful than DASH
+				impulse *= jump_height * -1 # note how this is less powerful than DASH (and negative
 				
-				apply_central_force(impulse)
+				linear_velocity += impulse
 				print('applying force of airrrrrr')
+	
+	if $LeftWallbox.has_overlapping_bodies(): #aka is hitting a left wall
+		linear_velocity.x = clamp(linear_velocity.x, 0, INF)
+	if $RightWallbox.has_overlapping_bodies(): #aka is hitting a right wall
+		linear_velocity.x = clamp(linear_velocity.x, -INF, 0)
 
 ## custom functions
 func deal_hit(entity: Entity) -> void:

@@ -12,6 +12,7 @@ extends Node2D
 @export var player_count = 2
 @export var random_stages : Array[PackedScene] = []
 @export var use_round_modifiers : bool = true
+@export var dynamic_camera : bool = true
 
 @export_category("Force Random Events")
 @export var use_force_events : bool = false 
@@ -113,34 +114,34 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	## Camera stuff lol
-	
-	# sums up player positions and makes the camera go toward their center
-	var positions : Array[Vector2] = []
-	for player in players.get_children():
-		positions.push_back(player.global_position)
-	var center_of_players = calc_mean_vec2(positions)
-	
-	camera_2d.global_position = center_of_players
-	
-	## zooms based on the player distance from camera center
-	
-	if not timeout_camera:
-		# find the distance from the camera for all players
-		var distances = []
-		for pos in positions:
-			distances.push_back(camera_2d.global_position.distance_to(pos))
-		# find whatever the farthest distance is
-		var max_dist = distances.max()
-		# zoom to fit it (or not)
-			# 128 is a healthy distance and results the zoom defaulting to 3.0 (at least on the x-axis, might need more testing for y-axis stuff)
-			# at a farther distance (above 128), the zoom should be less, and vice versa
-		var perfect_cam_zoom : float = clamp(128/float(max_dist) * 3, 2, 5)
-		# now, to smooth it... the camera can only change it's zoom by a certain max amount per frame (very small)
-		# the camera constantly is trying to get to this perfect value, slowly
-		var cam_zoom = lerp(camera_2d.zoom.x, perfect_cam_zoom, 0.05)
+	if dynamic_camera:
+		# sums up player positions and makes the camera go toward their center
+		var positions : Array[Vector2] = []
+		for player in players.get_children():
+			positions.push_back(player.global_position)
+		var center_of_players = calc_mean_vec2(positions)
 		
-		camera_2d.zoom = Vector2(cam_zoom, cam_zoom)
-	
+		camera_2d.global_position = center_of_players
+		
+		## zooms based on the player distance from camera center
+		
+		if not timeout_camera:
+			# find the distance from the camera for all players
+			var distances = []
+			for pos in positions:
+				distances.push_back(camera_2d.global_position.distance_to(pos))
+			# find whatever the farthest distance is
+			var max_dist = distances.max()
+			# zoom to fit it (or not)
+				# 128 is a healthy distance and results the zoom defaulting to 3.0 (at least on the x-axis, might need more testing for y-axis stuff)
+				# at a farther distance (above 128), the zoom should be less, and vice versa
+			var perfect_cam_zoom : float = clamp(128/float(max_dist) * 3, 2, 5)
+			# now, to smooth it... the camera can only change it's zoom by a certain max amount per frame (very small)
+			# the camera constantly is trying to get to this perfect value, slowly
+			var cam_zoom = lerp(camera_2d.zoom.x, perfect_cam_zoom, 0.05)
+			
+			camera_2d.zoom = Vector2(cam_zoom, cam_zoom)
+		
 	# camera timeout effects
 	if do_timeout:
 		
