@@ -75,7 +75,6 @@ Cascade Version of Physics:
 	Knockback
 	Armor
 
-Upon the death of everyone else, 3 second timer, if surviving still next round
 Exclusively Player and Exclusively Weapon Platforms
 Fall-through platforms with down
 Jump pads (for environment)
@@ -110,12 +109,10 @@ Tiny Perfection of Movement:
 		Also requires use of CeilBox:
 			on hit, y vel = 0
 			Cannot hit one-way platforms (might alright be satisfied, but worth checking)
-
-PHANTOM CAMERAAAAAAAAAAAAAAAAA:
-	make usable at all lol
-	make usable for 4/3 people
+			
 	
-	Maybe just make my own camera?
+	Aerial movement, doesn't go to 0 when not using keys
+	Fast-falling
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
 Story Mode (like World of Light) - has a like .001% chance of ever happening tbh lol
@@ -130,10 +127,8 @@ Color Picker
 There is always a need on the To-Do list to sort the To-Do list.
 
 Bugs:
-	Lol fix the secondaries already
-	Camera's wayyyy off
-
+	Sometimes cannot jump right off the bat (can_jump is false, but why???????)
+	
 
 Devlog: 
-	Secondary UI update, uggggghhhhh movement
-	Fixed Viewport estimate
+	

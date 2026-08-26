@@ -7,6 +7,10 @@ extends Entity
 @onready var secondary_timer: Timer = $SecondaryTimer
 @onready var secondary_timer_visual: TextureProgressBar = $SecondaryTimerVisual
 
+# should probably turn secondaries into their own class, like the weapons, for now they all live in the player
+@onready var air_blower_particles: CPUParticles2D = $AirBlowerParticles
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 @export var weapon_scene : PackedScene = null
 
 @export var randomize_character : bool = true
@@ -40,16 +44,22 @@ enum SECONDARY {
 @export var secondary_cooldown_mult = 1.0
 @export var damage_mult = 1.0 
 @export var weight_mult = 1.0 # likely just need to change mass for intended results...
-@export var lol_you_should_manipulate_hitbox_for_characters = null
+@export var enable_crouch = false # crouching exists, but feels a little half implemented...
 # optimally, would have magic or something for secondary
 
 
 var suffix = 1 # wait isn't this the same thing as p_num?????
-var can_jump = false
+
 var current_hp = max_hp
 var chara_name = 'Basicface'
 var secondary_ready = true # can the secondary be used currently?
 var secondary_name = 'None'
+
+# should be turned into a state machine, rather than abstract booleans
+var can_jump = false
+var crouching : bool = false
+var in_air : bool = false # mostly just the opposite of can_jump
+var can_fast_fall : bool = false # in_air, but cannot fast fall twice
 
 var weapon : Node = null # defined later
 
@@ -175,9 +185,16 @@ func _input(_event: InputEvent) -> void:
 	
 	if not is_dead:
 		
+		# jump
 		if Input.is_action_just_pressed("jump" + suffix) and floorbox.has_overlapping_bodies() and can_jump:
-			apply_impulse(Vector2(0, -jump_height * 100))
-			can_jump = false
+			apply_central_impulse(Vector2(0, -jump_height * 100))
+			can_jump = false # sometimes results in not being able to jump?
+			# but without, can superjump by hitting jump fast enough in a single frame
+		
+		# crouch
+		if Input.is_action_just_pressed("down" + suffix) and enable_crouch:
+			animation_player.play("crouch")
+			crouching = true
 
 func _process(_delta: float) -> void:
 	
@@ -196,47 +213,52 @@ func _physics_process(delta: float) -> void:
 		
 		if (Input.is_action_pressed("left" + suffix) and linear_velocity.x > -max_spd) \
 		or (Input.is_action_pressed("right" + suffix) and linear_velocity.x < max_spd):
-		#and abs(linear_velocity.x) < max_spd:
-			#add_constant_central_force(Vector2(x_dir * max_spd * 10000 * delta, 0))
 			linear_velocity.x += x_speed
-			print('adding linear velocity')
-			
-		
-		#print(constant_force)
-		#print(linear_velocity.x)
-		#print("/*********/")
 		
 		elif (not Input.is_action_pressed("left" + suffix) and linear_velocity.x < 0) or  \
 		(not Input.is_action_pressed("right" + suffix) and linear_velocity.x > 0):
 			linear_velocity.x = move_toward(linear_velocity.x, deacceleration * 1000, 0) # deacceleration
 		
-		# simple and pretty good solution, but fails to interpret air dash
+		# this is a simple and pretty good solution, but fails to interpret air dash
 		#linear_velocity.x = x_speed
 		
+		# fast-fall
+		if in_air and Input.is_action_just_pressed("down" + suffix) and can_fast_fall:
+			can_fast_fall = false
+			apply_central_impulse(Vector2(0, jump_height * 100))
+		
+		# release crouching
+		if crouching and not Input.is_action_pressed("down" + suffix) and not in_air and enable_crouch:
+			crouching = false
+			animation_player.play_backwards("crouch")
 		
 		# weapon
 		weapon.rotation += Input.get_axis("weapon_left" + suffix, "weapon_right" + suffix) * strength * delta
-	
-	match(secondary):
-		SECONDARY.DASH:
-			if Input.is_action_just_pressed("secondary" + suffix) and secondary_ready:
+		
+		# secondaries
+		match(secondary):
+			SECONDARY.DASH:
+				if Input.is_action_just_pressed("secondary" + suffix) and secondary_ready:
+					
+					var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
+					impulse *= jump_height * 100
+					
+					apply_central_impulse(impulse)
+					
+					secondary_timer.start()
+					secondary_timer_visual.visible = true
+					secondary_ready = false
 				
-				var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
-				impulse *= jump_height * 100
-				
-				apply_central_impulse(impulse)
-				
-				secondary_timer.start()
-				secondary_timer_visual.visible = true
-				secondary_ready = false
-			
-		SECONDARY.AIR_BLOWER: 
-			if Input.is_action_pressed("secondary" + suffix):
-				var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
-				impulse *= jump_height * -1 # note how this is less powerful than DASH (and negative
-				
-				linear_velocity += impulse
-				print('applying force of airrrrrr')
+			SECONDARY.AIR_BLOWER: 
+				if Input.is_action_pressed("secondary" + suffix):
+					var impulse = Vector2(cos(weapon.rotation), sin(weapon.rotation)) # in direction of weapon
+					impulse *= jump_height * -1 # note how this is less powerful than DASH (and negative
+					
+					linear_velocity += impulse
+					air_blower_particles.emitting = true
+					air_blower_particles.direction = -impulse.normalized()
+				else:
+					air_blower_particles.emitting = false
 	
 	if $LeftWallbox.has_overlapping_bodies(): #aka is hitting a left wall
 		linear_velocity.x = clamp(linear_velocity.x, 0, INF)
@@ -262,10 +284,15 @@ func take_hit(damage: float) -> void:
 ## signals
 func _on_floor_box_body_entered(_body: Node2D) -> void:
 	can_jump = true
-
+	
+	in_air = false
+	can_fast_fall = false
 
 func _on_floor_box_body_exited(_body: Node2D) -> void:
 	can_jump = false
+	
+	in_air = true
+	can_fast_fall = true
 
 func _on_secondary_timer_timeout() -> void:
 	secondary_ready = true
