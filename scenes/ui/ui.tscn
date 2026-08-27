@@ -15,7 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_pfayw")
 disable_timer = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=346348228]
+[node name="BattleUI" type="HBoxContainer" parent="." unique_id=346348228]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,164 +23,164 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSepInvis" parent="HBoxContainer" unique_id=320503078 instance=ExtResource("2_7vp6q")]
+[node name="HSepInvis" parent="BattleUI" unique_id=320503078 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
 
-[node name="MainContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=391838842]
+[node name="MainContainer" type="VBoxContainer" parent="BattleUI" unique_id=391838842]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HSepInvis" parent="HBoxContainer/MainContainer" unique_id=909040840 instance=ExtResource("2_7vp6q")]
+[node name="HSepInvis" parent="BattleUI/MainContainer" unique_id=909040840 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.5
 
-[node name="TopBar" type="HBoxContainer" parent="HBoxContainer/MainContainer" unique_id=1898090276]
+[node name="TopBar" type="HBoxContainer" parent="BattleUI/MainContainer" unique_id=1898090276]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="PBar1" parent="HBoxContainer/MainContainer/TopBar" unique_id=1217208977 instance=ExtResource("3_7vp6q")]
+[node name="PBar1" parent="BattleUI/MainContainer/TopBar" unique_id=1217208977 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
 
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar" unique_id=144555172 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis" parent="BattleUI/MainContainer/TopBar" unique_id=144555172 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="Timers" type="VBoxContainer" parent="HBoxContainer/MainContainer/TopBar" unique_id=1244073589]
+[node name="Timers" type="VBoxContainer" parent="BattleUI/MainContainer/TopBar" unique_id=1244073589]
 layout_mode = 2
 
-[node name="RoundTimer" type="Label" parent="HBoxContainer/MainContainer/TopBar/Timers" unique_id=1287600319]
+[node name="RoundTimer" type="Label" parent="BattleUI/MainContainer/TopBar/Timers" unique_id=1287600319]
 layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "45"
 horizontal_alignment = 1
 
-[node name="NextRoundTimerLabel" type="Label" parent="HBoxContainer/MainContainer/TopBar/Timers" unique_id=1536161618]
+[node name="NextRoundTimerLabel" type="Label" parent="BattleUI/MainContainer/TopBar/Timers" unique_id=1536161618]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "3.0"
 horizontal_alignment = 1
 
-[node name="NextRoundTimer" type="Timer" parent="HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel" unique_id=801929223]
+[node name="NextRoundTimer" type="Timer" parent="BattleUI/MainContainer/TopBar/Timers/NextRoundTimerLabel" unique_id=801929223]
 wait_time = 3.0
 
-[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar" unique_id=1961827741 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis2" parent="BattleUI/MainContainer/TopBar" unique_id=1961827741 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="PBar2" parent="HBoxContainer/MainContainer/TopBar" unique_id=132436564 instance=ExtResource("3_7vp6q")]
+[node name="PBar2" parent="BattleUI/MainContainer/TopBar" unique_id=132436564 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
 reverse = true
 
-[node name="LowerBar" type="HBoxContainer" parent="HBoxContainer/MainContainer" unique_id=1220545778]
+[node name="LowerBar" type="HBoxContainer" parent="BattleUI/MainContainer" unique_id=1220545778]
 layout_mode = 2
 
-[node name="After1" type="VBoxContainer" parent="HBoxContainer/MainContainer/LowerBar" unique_id=1155965]
+[node name="After1" type="VBoxContainer" parent="BattleUI/MainContainer/LowerBar" unique_id=1155965]
 layout_mode = 2
 
-[node name="Character1" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After1" unique_id=1872573702]
-layout_mode = 2
-text = "Below are set in code"
-
-[node name="Weapon1" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After1" unique_id=1936463092]
-layout_mode = 2
-text = "Weapon: "
-
-[node name="Secondary1" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After1" unique_id=1983509187]
-layout_mode = 2
-text = "Secondary: "
-
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/LowerBar" unique_id=1211583083 instance=ExtResource("6_4kltc")]
-layout_mode = 2
-
-[node name="After2" type="VBoxContainer" parent="HBoxContainer/MainContainer/LowerBar" unique_id=2066159847]
-layout_mode = 2
-
-[node name="Character2" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After2" unique_id=135446595]
+[node name="Character1" type="Label" parent="BattleUI/MainContainer/LowerBar/After1" unique_id=1872573702]
 layout_mode = 2
 text = "Below are set in code"
 
-[node name="Weapon2" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After2" unique_id=1731034843]
+[node name="Weapon1" type="Label" parent="BattleUI/MainContainer/LowerBar/After1" unique_id=1936463092]
 layout_mode = 2
 text = "Weapon: "
 
-[node name="Secondary2" type="Label" parent="HBoxContainer/MainContainer/LowerBar/After2" unique_id=397027040]
+[node name="Secondary1" type="Label" parent="BattleUI/MainContainer/LowerBar/After1" unique_id=1983509187]
 layout_mode = 2
 text = "Secondary: "
 
-[node name="HSepInvis2" parent="HBoxContainer/MainContainer" unique_id=1496962842 instance=ExtResource("2_7vp6q")]
+[node name="VSepInvis" parent="BattleUI/MainContainer/LowerBar" unique_id=1211583083 instance=ExtResource("6_4kltc")]
+layout_mode = 2
+
+[node name="After2" type="VBoxContainer" parent="BattleUI/MainContainer/LowerBar" unique_id=2066159847]
+layout_mode = 2
+
+[node name="Character2" type="Label" parent="BattleUI/MainContainer/LowerBar/After2" unique_id=135446595]
+layout_mode = 2
+text = "Below are set in code"
+
+[node name="Weapon2" type="Label" parent="BattleUI/MainContainer/LowerBar/After2" unique_id=1731034843]
+layout_mode = 2
+text = "Weapon: "
+
+[node name="Secondary2" type="Label" parent="BattleUI/MainContainer/LowerBar/After2" unique_id=397027040]
+layout_mode = 2
+text = "Secondary: "
+
+[node name="HSepInvis2" parent="BattleUI/MainContainer" unique_id=1496962842 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 5.38
 
-[node name="LowerBar2" type="HBoxContainer" parent="HBoxContainer/MainContainer" unique_id=939759788]
+[node name="LowerBar2" type="HBoxContainer" parent="BattleUI/MainContainer" unique_id=939759788]
 layout_mode = 2
 
-[node name="After3" type="VBoxContainer" parent="HBoxContainer/MainContainer/LowerBar2" unique_id=1783428586]
+[node name="After3" type="VBoxContainer" parent="BattleUI/MainContainer/LowerBar2" unique_id=1783428586]
 layout_mode = 2
 
-[node name="Character3" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After3" unique_id=514460248]
-layout_mode = 2
-text = "Below are set in code"
-
-[node name="Weapon3" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After3" unique_id=1823379810]
-layout_mode = 2
-text = "Weapon: "
-
-[node name="Secondary3" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After3" unique_id=813774115]
-layout_mode = 2
-text = "Secondary: "
-
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/LowerBar2" unique_id=1147377111 instance=ExtResource("6_4kltc")]
-layout_mode = 2
-
-[node name="After4" type="VBoxContainer" parent="HBoxContainer/MainContainer/LowerBar2" unique_id=1601889507]
-layout_mode = 2
-
-[node name="Character4" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After4" unique_id=249015345]
+[node name="Character3" type="Label" parent="BattleUI/MainContainer/LowerBar2/After3" unique_id=514460248]
 layout_mode = 2
 text = "Below are set in code"
 
-[node name="Weapon4" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After4" unique_id=1810855878]
+[node name="Weapon3" type="Label" parent="BattleUI/MainContainer/LowerBar2/After3" unique_id=1823379810]
 layout_mode = 2
 text = "Weapon: "
 
-[node name="Secondary4" type="Label" parent="HBoxContainer/MainContainer/LowerBar2/After4" unique_id=1813406446]
+[node name="Secondary3" type="Label" parent="BattleUI/MainContainer/LowerBar2/After3" unique_id=813774115]
 layout_mode = 2
 text = "Secondary: "
 
-[node name="TopBar2" type="HBoxContainer" parent="HBoxContainer/MainContainer" unique_id=300932200]
+[node name="VSepInvis" parent="BattleUI/MainContainer/LowerBar2" unique_id=1147377111 instance=ExtResource("6_4kltc")]
+layout_mode = 2
+
+[node name="After4" type="VBoxContainer" parent="BattleUI/MainContainer/LowerBar2" unique_id=1601889507]
+layout_mode = 2
+
+[node name="Character4" type="Label" parent="BattleUI/MainContainer/LowerBar2/After4" unique_id=249015345]
+layout_mode = 2
+text = "Below are set in code"
+
+[node name="Weapon4" type="Label" parent="BattleUI/MainContainer/LowerBar2/After4" unique_id=1810855878]
+layout_mode = 2
+text = "Weapon: "
+
+[node name="Secondary4" type="Label" parent="BattleUI/MainContainer/LowerBar2/After4" unique_id=1813406446]
+layout_mode = 2
+text = "Secondary: "
+
+[node name="TopBar2" type="HBoxContainer" parent="BattleUI/MainContainer" unique_id=300932200]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="PBar3" parent="HBoxContainer/MainContainer/TopBar2" unique_id=819698369 instance=ExtResource("3_7vp6q")]
+[node name="PBar3" parent="BattleUI/MainContainer/TopBar2" unique_id=819698369 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
 
-[node name="VSepInvis" parent="HBoxContainer/MainContainer/TopBar2" unique_id=357166299 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis" parent="BattleUI/MainContainer/TopBar2" unique_id=357166299 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="RoundModifier" type="Label" parent="HBoxContainer/MainContainer/TopBar2" unique_id=1064917767]
+[node name="RoundModifier" type="Label" parent="BattleUI/MainContainer/TopBar2" unique_id=1064917767]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Round Modifier Text!
 yayayyaaya"
 
-[node name="VSepInvis2" parent="HBoxContainer/MainContainer/TopBar2" unique_id=1855960891 instance=ExtResource("6_4kltc")]
+[node name="VSepInvis2" parent="BattleUI/MainContainer/TopBar2" unique_id=1855960891 instance=ExtResource("6_4kltc")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.17
 
-[node name="PBar4" parent="HBoxContainer/MainContainer/TopBar2" unique_id=576032160 instance=ExtResource("3_7vp6q")]
+[node name="PBar4" parent="BattleUI/MainContainer/TopBar2" unique_id=576032160 instance=ExtResource("3_7vp6q")]
 layout_mode = 2
 reverse = true
 
-[node name="HSepInvis3" parent="HBoxContainer/MainContainer" unique_id=517168879 instance=ExtResource("2_7vp6q")]
+[node name="HSepInvis3" parent="BattleUI/MainContainer" unique_id=517168879 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.3
 
-[node name="HSepInvis2" parent="HBoxContainer" unique_id=98456488 instance=ExtResource("2_7vp6q")]
+[node name="HSepInvis2" parent="BattleUI" unique_id=98456488 instance=ExtResource("2_7vp6q")]
 layout_mode = 2
 size_flags_stretch_ratio = 0.05
 
-[connection signal="timeout" from="HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer" to="." method="_on_next_round_real_timer_timeout"]
+[connection signal="timeout" from="BattleUI/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer" to="." method="_on_next_round_real_timer_timeout"]

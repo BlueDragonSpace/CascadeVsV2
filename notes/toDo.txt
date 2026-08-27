@@ -112,7 +112,8 @@ Tiny Perfection of Movement:
 			
 	
 	Aerial movement, doesn't go to 0 when not using keys
-	Fast-falling
+	
+	Test turning weapon gravity to 0, seems to have a lot more control (why did I take it off??)
 
 Online Multiplayer??? (way far future, but worth making a small project to test)
 Story Mode (like World of Light) - has a like .001% chance of ever happening tbh lol

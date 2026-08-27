@@ -1,24 +1,24 @@
 extends Control
 
-@onready var main_container: VBoxContainer = $HBoxContainer/MainContainer
+@onready var main_container: VBoxContainer = $BattleUI/MainContainer
 # yes, I know they're arranged weird, just work with me here
-@onready var p_bar_1: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar1
-@onready var p_bar_2: HBoxContainer = $HBoxContainer/MainContainer/TopBar/PBar2
-@onready var after_1: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After1
-@onready var after_2: VBoxContainer = $HBoxContainer/MainContainer/LowerBar/After2
-@onready var after_3: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After3
-@onready var after_4: VBoxContainer = $HBoxContainer/MainContainer/LowerBar2/After4
-@onready var p_bar_3: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar3
-@onready var p_bar_4: HBoxContainer = $HBoxContainer/MainContainer/TopBar2/PBar4
+@onready var p_bar_1: HBoxContainer = $BattleUI/MainContainer/TopBar/PBar1
+@onready var p_bar_2: HBoxContainer = $BattleUI/MainContainer/TopBar/PBar2
+@onready var after_1: VBoxContainer = $BattleUI/MainContainer/LowerBar/After1
+@onready var after_2: VBoxContainer = $BattleUI/MainContainer/LowerBar/After2
+@onready var after_3: VBoxContainer = $BattleUI/MainContainer/LowerBar2/After3
+@onready var after_4: VBoxContainer = $BattleUI/MainContainer/LowerBar2/After4
+@onready var p_bar_3: HBoxContainer = $BattleUI/MainContainer/TopBar2/PBar3
+@onready var p_bar_4: HBoxContainer = $BattleUI/MainContainer/TopBar2/PBar4
 var p_bars = [p_bar_1, p_bar_2, p_bar_3, p_bar_4]
 
-@onready var round_timer: Label = $HBoxContainer/MainContainer/TopBar/Timers/RoundTimer
-@onready var next_round_timer_label: Label = $HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel
-@onready var next_round_timer: Timer = $HBoxContainer/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer
+@onready var round_timer: Label = $BattleUI/MainContainer/TopBar/Timers/RoundTimer
+@onready var next_round_timer_label: Label = $BattleUI/MainContainer/TopBar/Timers/NextRoundTimerLabel
+@onready var next_round_timer: Timer = $BattleUI/MainContainer/TopBar/Timers/NextRoundTimerLabel/NextRoundTimer
 
-@onready var round_modifier: Label = $HBoxContainer/MainContainer/TopBar2/RoundModifier
+@onready var round_modifier: Label = $BattleUI/MainContainer/TopBar2/RoundModifier
 
-
+@export_category("Battle UI")
 @export var max_timer_time : int = 45
 @onready var timer_time : float = max_timer_time
 @export var disable_timer = false

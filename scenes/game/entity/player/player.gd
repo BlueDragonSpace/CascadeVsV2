@@ -13,7 +13,6 @@ extends Entity
 
 @export var weapon_scene : PackedScene = null
 
-@export var randomize_character : bool = true
 enum CHARACTER {
 	BASIC,
 	STRONG,
@@ -22,7 +21,6 @@ enum CHARACTER {
 }
 @export var chara : CHARACTER = CHARACTER.BASIC
 
-@export var randomize_secondary : bool = true
 enum SECONDARY {
 	NONE,
 	DASH,
@@ -36,7 +34,7 @@ enum SECONDARY {
 @export var strength = 10 ## ability to move your weapon
 @export var jump_height : float = 15
 @export var acceleration = 5 # how fast can you get to max_spd
-@export var deacceleration = 32 * 100 # how quickly you stop moving once you stop pressing anything
+@export var deacceleration = 32 * 10 # how quickly you stop moving once you stop pressing anything
 @export var max_spd = 8 * 10
 @export var max_hp = 100
 #@export var fall_mult = 1.0 ## Just manipulate gravity_scale
@@ -92,35 +90,7 @@ func _ready() -> void:
 	
 	
 	## CHARACTER STATS
-	if randomize_character:
-		# just chooses any random one from the total
-		chara = randi_range(0, CHARACTER.size() - 1) as CHARACTER
-	
-	match(chara):
-		CHARACTER.BASIC:
-			pass # lol basic stats
-			
-		CHARACTER.STRONG:
-			strength *= 1.5
-			jump_height *= 0.7
-			max_spd *= 0.7
-			max_hp *= 1.2
-			chara_name = 'Strongface' 
-			
-		CHARACTER.JUMP:
-			strength *= 0.6
-			jump_height *= 1.6
-			max_spd *= 1.4
-			max_hp *= .8
-			chara_name = 'Jumpface'
-			
-		CHARACTER.FLOAT:
-			strength *= 0.8
-			jump_height *= 0.6 # debuff their height or this would be ridiculous
-			max_spd *= 1.2
-			#max_hp
-			gravity_scale *= 0.2 # wow, they don't float, they just ignore gravity!1!11!!!
-			chara_name = 'Floatface'
+	set_character_stats(randi_range(0, CHARACTER.size() - 1))
 	
 	## player num set-up
 	suffix = str(p_num)
@@ -160,17 +130,7 @@ func _ready() -> void:
 	
 	
 	## SECONDARY
-	if randomize_secondary:
-		# can be anything but NONE (the first secondary)
-		secondary = randi_range(1, SECONDARY.size() - 1) as SECONDARY
-	
-	match(secondary):
-		SECONDARY.DASH:
-			secondary_name = 'Dash' # bugged, does not properly allow x-axis movement
-		SECONDARY.AIR_BLOWER:
-			secondary_name = 'Air Blower' # seemingly doesn't do anything??
-		_:
-			secondary_name = 'unknown secondary index error lol'
+	set_secondary(randi_range(1, SECONDARY.size() - 1))
 	
 	UI.call_deferred("set_data", p_num, self)
 	
@@ -217,8 +177,12 @@ func _physics_process(delta: float) -> void:
 		
 		elif (not Input.is_action_pressed("left" + suffix) and linear_velocity.x < 0) or  \
 		(not Input.is_action_pressed("right" + suffix) and linear_velocity.x > 0):
-			linear_velocity.x = move_toward(linear_velocity.x, deacceleration * 1000, 0) # deacceleration
-		
+			linear_velocity.x = move_toward(linear_velocity.x, 0, deacceleration * 100,) # deacceleration
+			# at a certain point it rounds to basically 0 but keeps trying to calculate it over and over
+			# note that this still doesn't fix it :\
+			if linear_velocity.x > -0.1 and linear_velocity.x < 0.1:
+				linear_velocity.x = 0
+
 		# this is a simple and pretty good solution, but fails to interpret air dash
 		#linear_velocity.x = x_speed
 		
@@ -280,6 +244,52 @@ func take_hit(damage: float) -> void:
 	
 	if current_hp <= 0:
 		die(p_num)
+
+func set_character_stats(input: int) -> void:
+	
+	chara = input as CHARACTER
+	
+	match(chara):
+		CHARACTER.BASIC:
+			# could lead to an error where it doesn't reset stats for a changing character tho :/
+			pass # lol basic stats
+			
+		CHARACTER.STRONG:
+			strength *= 1.5
+			jump_height *= 0.7
+			max_spd *= 0.7
+			max_hp *= 1.2
+			chara_name = 'Strongface' 
+			
+		CHARACTER.JUMP:
+			strength *= 0.6
+			jump_height *= 1.6
+			max_spd *= 1.4
+			max_hp *= .8
+			chara_name = 'Jumpface'
+			
+		CHARACTER.FLOAT:
+			strength *= 0.8
+			jump_height *= 0.6 # debuff their jump height or this would be ridiculous
+			max_spd *= 1.2
+			#max_hp
+			gravity_scale *= 0.2 # wow, they don't float, they just ignore gravity!1!11!!!
+			chara_name = 'Floatface'
+	
+
+func set_secondary(input: int) -> void:
+	
+	secondary = input as SECONDARY
+	
+	match(secondary):
+		SECONDARY.NONE:
+			secondary_name = 'None'
+		SECONDARY.DASH:
+			secondary_name = 'Dash'
+		SECONDARY.AIR_BLOWER:
+			secondary_name = 'Air Blower'
+		_:
+			secondary_name = 'unknown secondary index error lol'
 
 ## signals
 func _on_floor_box_body_entered(_body: Node2D) -> void:

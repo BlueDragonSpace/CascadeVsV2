@@ -18,6 +18,8 @@ extends Node2D
 @export var use_force_events : bool = false 
 @export var force_round_modifier : ROUND_MODIFIERS # does not override use_round_modifiers
 @export var force_timeout_modifier : TIMEOUT_MODIFIERS
+@export var force_p1_character : Player.CHARACTER
+@export var force_p1_secondary : Player.SECONDARY
 
 enum ROUND_MODIFIERS {
 	BASIC,
@@ -74,6 +76,8 @@ func _ready() -> void:
 	if use_force_events:
 			current_modifier = force_round_modifier as ROUND_MODIFIERS
 			timeout_event = force_timeout_modifier as TIMEOUT_MODIFIERS
+			players.get_child(0).set_character_stats(force_p1_character)
+			players.get_child(0).set_secondary(force_p1_secondary)
 	
 	# randomly chooses a modifier and applies it (if round modifiers are enabled)
 	if use_round_modifiers:
